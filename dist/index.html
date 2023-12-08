@@ -18,17 +18,71 @@
 
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/main.css">
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
 </head>
 
-<body>
-
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
+<body class="w-100p">
+  <main>
+    <nav class="pos-fixed w-100vw p-1rem bk-white txt-al-c">
+      <a class="f-bungee f-z-2rem lh-0 txt-al-c p-t-1rem p-b-1rem p-0-5rem v-al-mid c-black txt-dec-none hov-color-black hov-bck-color-avocado hvr-underline" href="#home" onclick="window.scrollTo(0, 0)">HOME</a>
+      <a class="f-bungee f-z-2rem lh-0 txt-al-c p-t-1rem p-b-1rem p-0-5rem v-al-mid c-auburn txt-dec-none hov-color-auburn hov-bck-color-marigold hvr-underline" href="#work">WORK</a>
+      <a class="f-bungee f-z-2rem lh-0 txt-al-c p-t-1rem p-b-1rem p-0-5rem v-al-mid c-blue-sapphire txt-dec-none hov-color-blue-sapphire hov-bck-color-platinum hvr-underline" href="#contact">EMAIL</a>
+    </nav>
+    <article class="w-100vw h-100vh ovr-flw-hide bk-white c-black txt-al-l">
+      <h1 class="m-0 p-t-3rem f-monoton f-z-25vw lh--9 ww-br-wrd wsp-wrap txt-al-c" aria-hidden="true" aria-label="Jesse Sherwood">JESSE SHERWOOD JESSE SHERWOOD JESSE SHERWOOD JESSE SHERWOOD JESSE SHERWOOD</h1>
+      <section class="pos-abso top-35vh p-1rem p-l-10vw p-r-10vw f-josefin-sans f-z-1-5rem bk-white-o-0-9 brdr-t-35px-sld brdr-b-35px-sld">
+        <p>Jesse Sherwood is a writer from Western New York. He has made some things, and will likely make many more. He lives in New York City.</p>
+      </section>
+    </article>
+    <article class="w-100vw h-100vh ovr-flw-hide bk-white c-auburn">
+      <a id="work"></a>
+      <header>
+        <h1 class="m-0 p-t-3rem f-monoton f-z-25vw lh--9 txt-al-c" aria-hidden="true" aria-label="Work">WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK WORK</h1>
+      </header>
+      <section class="pos-abso top-115vh p-1rem p-l-10vw p-r-10vw f-josefin-sans bk-white-o-0-9 brdr-t-35px-sld brdr-b-35px-sld">
+          <a class="c-auburn txt-dec-none" href="https://www.saturdayeveningpost.com/2020/01/all-happy-families/" target="_blank">
+            <h3 class="m-0">Fiction</h3>
+            <h2 class="mt-0 hvr-underline">All Happy Families</h2>
+            <p>He would never sit around waiting for someone to die, but his three daughters find themselves doing just that, waiting at his deathbed, trying to make sense of his past and their future.</p>
+          </a>
+          <a class="c-auburn txt-dec-none" href="https://www.guernicamag.com/kafkas-selfies/" target="_blank">
+            <h3 class="m-0">Review</h3>
+            <h2 class="mt-0 hvr-underline">Kafka's Selfies</h2>
+            <p>A new collection highlights Kafka's Kardashian-esque self-reflection.</p>
+          </a>
+          <a class="c-auburn txt-dec-none" href="https://www.mcsweeneys.net/articles/translations-of-common-job-descriptions" target="_blank">
+            <h3 class="m-0">Humor</h3>
+            <h2 class="mt-0 hvr-underline">Translations of Common Job Descriptions</h2>
+            <p>"Minimum of 2 years of experience in a similar role”
+              Ideally, you will have at least 45 years’ experience in this exact role. Though, we do want you to be fresh, hip, innovative."</p>
+          </a>
+          <a class="c-auburn txt-dec-none" href="https://writers.coverfly.com/projects/view/6ecc63b1-0aea-4b3a-b19f-262df75c41b5/The_Woman_With_No_Name" target="_blank">
+            <h3 class="m-0">Screenplay</h3>
+            <h2 class="mt-0 hvr-underline">The Woman With No Name</h2>
+            <p>Violence and mayhem ensue after a nameless drifter finds herself facing off against three drug-smuggling brothers whose strip club dominates an oil boomtown turned bust-town in North Dakota.</p>
+          </a>
+      </section>
+    </article>
+    <article class="w-100vw h-100vh ovr-flw-hide bk-white c-blue-sapphire">
+      <a id="contact"></a>
+      <header>
+        <h1 class="m-0 p-t-3rem f-monoton f-z-25vw lh--9 txt-al-c" aria-hidden="true" aria-label="Email">EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL EMAIL</h1>
+      </header>
+      <h2 class="contact-email"></h2>
+      <section class="pos-abso top-235vh w-100vw p-1rem f-josefin-sans f-z-1-5rem txt-al-c bk-white-o-0-9 brdr-t-35px-sld brdr-b-35px-sld">
+        <p>jesse[dot]e[dot]sherwood[at]gmail[dot]com</p>
+      </section>
+    </article>
+  </main>
+  <footer class="pos-fixed bottom-0 w-100p p-0-5rem f-josefin-sans txt-al-c bk-white c-black">
+    &copy; <span class="date-w"></span> JESSE SHERWOOD
+  </footer>
   <script src="js/vendor/modernizr-3.12.0.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/main.js"></script>
 
 </body>
 

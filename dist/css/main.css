@@ -1,0 +1,241 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+/* --- colors --- */
+:root {
+  --black: 0, 0, 0;
+  --white: 255, 255, 255;
+  --auburn: 165, 36, 34;
+  --blue-sapphire: 0, 110, 144;
+}
+.c-white {
+  color: rgba(var(--white), 1);
+}
+.c-black {
+  color: rgba(var(--black), 1);
+}
+.c-auburn {
+  color: rgba(var(--auburn), 1);
+}
+.c-blue-sapphire {
+  color: rgba(var(--blue-sapphire), 1);
+}
+.bk-black {
+  background-color: rgba(var(--black), 1);
+}
+.bk-white {
+  background-color: rgba(var(--white), 1);
+}
+.bk-white-o-0-9 {
+  background-color: rgba(var(--white), 0.9);
+}
+.bk-blue-sapphire {
+  background-color: rgba(var(--blue-sapphire), 1);
+}
+
+/* --- positioning & display --- */
+.pos-fixed {
+  position: fixed;
+}
+.pos-abso {
+  position: absolute;
+}
+.top-35vh {
+  top: 35vh;
+}
+.top-115vh {
+  top: 115vh;
+}
+.top-235vh {
+  top: 235vh;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.right-0 {
+  right: 0;
+}
+.dis-none {
+  display: none;
+}
+.dis-block {
+  display: block;
+}
+.dis-inline-block {
+  display: inline-block;
+}
+
+/* --- sizing --- */
+.w-100p {
+  width: 100%;
+}
+.w-100vw {
+  width: 100vw;
+}
+.h-100vh {
+  height: 100vh;
+}
+.w-50vw {
+  width: 50vw;
+}
+.w-20rem {
+  width: 20rem;
+}
+.h-20rem {
+  height: 20rem;
+}
+.mh-58rem {
+  min-height: 58rem;
+}
+
+/* --- margin & padding --- */
+.m-auto {
+  margin: auto;
+}
+.m-0 {
+  margin: 0;
+}
+.mt-0 {
+  margin-top: 0;
+}
+.mb-1rem {
+  margin-bottom: 1rem;
+}
+.p-0-5rem {
+  padding: 0.5rem;
+}
+.p-1rem {
+  padding: 1rem;
+}
+.p-t-0-5rem {
+  padding-top: 0.5rem;
+}
+.p-t-1rem {
+  padding-top: 1rem;
+}
+.p-t-3rem {
+  padding-top: 3rem;
+}
+.p-b-0-3rem {
+  padding-bottom: 0.3rem;
+}
+.p-b-1rem {
+  padding-bottom: 1rem;
+}
+.p-l-10vw {
+  padding-left: 10vw;
+}
+.p-r-10vw {
+  padding-right: 10vw;
+}
+
+/* --- fonts --- */
+.f-monoton {
+  font-family: 'Monoton', san-serif;
+}
+.f-bungee {
+  font-family: 'Bungee', san-serif;
+}
+.f-josefin-sans {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/* --- font sizes --- */
+.f-z-25vw {
+  font-size: 25vw;
+}
+.f-z-8rem {
+  font-size: 8rem;
+}
+.f-z-2rem {
+  font-size: 2rem;
+}
+.f-z-1-5rem {
+  font-size: 1.5rem;
+}
+.f-z-1rem {
+  font-size: 1rem;
+}
+
+/* --- line heights --- */
+.lh-0 {
+  line-height: 0;
+}
+.lh--9 {
+  line-height: 0.9;
+}
+
+/* --- misc text styling --- */
+.ww-br-wrd {
+  word-wrap: break-word;
+}
+.wsp-wrap {
+  white-space: wrap;
+}
+.ovr-flw-hide {
+  overflow: hidden;
+}
+.txt-al-l {
+  text-align: left;
+}
+.txt-al-r {
+  text-align: right;
+}
+.txt-al-c {
+  text-align: center;
+}
+.v-al-mid {
+  vertical-align: middle;
+}
+.txt-dec-none {
+  text-decoration: none;
+}
+
+/* --- list styling --- */
+.lst-st-typ-0 {
+  list-style-type: none;
+}
+
+/* --- borders -- */
+.brdr-t-35px-sld {
+  border-top: 35px solid;
+}
+.brdr-b-35px-sld {
+  border-bottom: 35px solid;
+}
+.brdr-none {
+  border: none;
+}
+.brdr-1px-solid-blue-sapphire {
+  border: 1px solid rgba(var(--blue-sapphire), 1);
+}
+
+/* --- transforms --- */
+.trsfm-rotate-90 {
+  transform: rotate(90deg);
+}
+
+/* -- hovers --- */
+.hvr-underline:hover {
+  text-decoration: underline;
+}
+
+.hvr-pointer:hover {
+  cursor: pointer;
+}
+
+/* --- form styling --- */
+::placeholder {
+  color: rgba(var(--blue-sapphire), 0.5);
+}
+:focus::placeholder {
+  color: transparent;
+}
