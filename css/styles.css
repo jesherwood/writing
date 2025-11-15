@@ -1,0 +1,452 @@
+/* ==========================================================================
+   Layering keeps cascade predictable: base → components → utilities
+   ========================================================================== */
+@layer base, components, utilities;
+
+/* ==========================================================================
+   1) Base (mobile-first defaults)
+   ========================================================================== */
+@layer base {
+  /* Fonts */
+  @font-face {
+    font-family: "Monoton";
+    src: url("../fonts/Monoton/Monoton-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Rubik";
+    src: url("../fonts/rubik/Rubik-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Rubik";
+    src: url("../fonts/rubik/Rubik-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Rubik";
+    src: url("../fonts/rubik/Rubik-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  :root {
+    /* Theme */
+    --bg: #6B0000;
+    --fg: #fff;
+
+    /* Layout */
+    --max-content: 900px;
+    --footer-h: 4rem;
+
+    /* Decor */
+    --dash: 2px dashed var(--fg);
+    --dash-invert: 2px dashed var(--bg);
+
+    /* Type scale root */
+    font-size: 16px;
+  }
+
+  /* Page variants (scoped by body class) */
+  body.about { --bg: #0A014F; }
+  body.contact { --bg: #FB5012; }
+
+  /* Sensible defaults/reset */
+  html { font-size: clamp(14px, 1.6vw, 18px); }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    min-width: 0;
+  }
+
+  body {
+    margin: 0;
+    font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--fg);
+    background: transparent;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    z-index: -1;
+  }
+
+  /* Typography */
+  h1, h2, h3 {
+    margin: 0;
+    font-family: "Monoton", cursive;
+    font-weight: 400;
+    color: var(--fg);
+    line-height: 1.25;
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 8vw, 5rem);
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: clamp(1.25rem, 6vw, 3rem);
+    overflow-wrap: break-word;
+    padding: 1rem 0;
+  }
+
+  h3 { font-size: clamp(1rem, 4.5vw, 2rem); }
+
+  h2:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  h3.rubik {
+    font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  p { margin: 0 0 1.5em; }
+
+  a {
+    color: var(--fg);
+    text-decoration: underline;
+  }
+
+  a.no-underline { text-decoration: none; }
+
+  hr {
+    border: none;
+    border-top: var(--dash);
+    margin: 2rem auto;
+    width: 20%;
+  }
+
+  .article-meta {
+    margin: 0 0 1rem;
+    font-size: 0.9em;
+    font-style: italic;
+    color: var(--fg);
+  }
+
+  /* Motion safety */
+  @media (prefers-reduced-motion: no-preference) {
+    :where(a, button, .interactive) {
+      transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        outline-color 0.2s ease;
+    }
+  }
+}
+
+/* ==========================================================================
+   2) Components
+   ========================================================================== */
+@layer components {
+  /* Shared section chrome */
+  header,
+  nav,
+  .hero-heading,
+  .container,
+  article,
+  section {
+    border: var(--dash);
+    border-radius: 0;
+    padding: 2rem;
+  }
+
+  nav,
+  .hero-heading,
+  footer {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+
+  /* Container */
+  .container {
+    width: 100%;
+    max-width: var(--max-content);
+    margin-inline: auto;
+    margin-block: 0;
+    padding: 1rem;
+    border-top: var(--dash);
+    flex: 1 0 auto;
+  }
+
+  /* Article */
+  article {
+    padding: 2em;
+    z-index: 5;
+  }
+
+  /* Footer */
+  footer {
+    position: relative;
+    z-index: 9;
+    display: block;
+    width: 100%;
+    min-height: var(--footer-h);
+    margin-top: 2rem;
+    padding: 1.5rem;
+    text-align: center;
+    border-top: var(--dash);
+    color: var(--fg);
+  }
+
+  /* Nav */
+  nav {
+    margin-bottom: 2rem;
+    padding: 0;
+    border-bottom: var(--dash);
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column; /* mobile stack */
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav li { display: flex; }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2rem;        /* stable height on mobile */
+    padding: 0 0.75rem;      /* use padding on the link, not the li */
+    width: 100%;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.75rem;      /* ~28px @ root 16 */
+    text-transform: lowercase;
+    color: var(--fg);
+  }
+
+  /* Hover/focus: invert without layout shift */
+  nav li:is(:hover, :focus-within) { cursor: pointer; }
+
+  nav li:is(:hover, :focus-within) a {
+    color: var(--bg);
+    background: var(--fg);
+    outline: var(--dash);
+    outline-offset: -2px;    /* keeps outline inside */
+  }
+
+  /* Hero */
+  .hero-heading {
+    position: relative;
+    width: 100%;
+    padding-block: 0.75rem;
+    text-align: center;
+    color: var(--fg);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+  }
+
+  /* Book placeholder box ratio */
+  .ratio-row {
+    display: flex;
+    flex-direction: column; /* mobile-first: stack */
+    align-items: center;
+    gap: 0;
+  }
+
+  /* IMPORTANT: auto flex-basis so aspect-ratio defines height in column layout */
+  .ratio-box,
+  .ratio-box-blurb {
+    flex: 1 1 auto;          /* was 1 1 50% which can collapse in column flex */
+    width: 100%;
+    max-width: 100%;
+    margin: 1rem 0 1.75rem;
+  }
+
+  /* ratio-box specific styling */
+  .ratio-box {
+    position: relative;
+    aspect-ratio: 4 / 6;
+    background: var(--fg);
+    color: var(--bg);
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .ratio-box img {
+    filter: contrast(1.5);
+  }
+
+  /* Blurb content */
+  .ratio-box-blurb { line-height: 1.4; }
+
+  .blurb-title {
+    font-family: "Monoton", cursive;
+    font-size: clamp(1.25rem, 6vw, 2rem);
+    text-transform: lowercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* Aspect-ratio fallback */
+  @supports not (aspect-ratio: 1/1) {
+    .ratio-box {
+      height: 0;
+      padding-top: calc(6 / 4 * 100%); /* 4:6 ratio */
+    }
+
+    .ratio-box > * {
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  .about article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  /* ensures content centers vertically if needed */
+    text-align: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .about img {
+    flex-grow: 2;
+    height: 50vh;
+    object-fit: cover;
+    display: block;           /* ensures it behaves predictably inside flex */
+  }
+
+  .about p {
+    text-align: left;
+    flex-grow: 1;
+  }
+
+  /* Forms (scoped to .contact page) */
+  .contact article { text-align: center; }
+
+  .contact form {
+    margin: 2em 0;
+    text-align: center;
+  }
+
+  .contact form div { margin-bottom: 1.5em; }
+
+  .contact label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: var(--fg);
+  }
+
+  .contact :is(input[type="text"], input[type="email"], textarea, button) {
+    width: 100%;
+    font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--bg);
+    background: var(--fg);
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 0;
+    outline-offset: 4px;
+    text-align: left;
+  }
+
+  .contact button {
+    width: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: lowercase;
+    text-align: center;
+  }
+
+  .contact button:hover {
+    background: var(--bg);
+    color: var(--fg);
+    outline: var(--dash);
+    outline-offset: -2px;
+  }
+}
+
+/* ==========================================================================
+   3) Utilities & Breakpoints (progressive enhancements)
+   ========================================================================== */
+@layer utilities {
+  /* ≥421px */
+  @media (min-width: 421px) {
+    .container { padding: 1rem; }
+
+    .ratio-box { max-width: 300px; }
+
+    .ratio-box__inner { padding: 0.5rem; }
+
+    .ratio-box__inner :is(h2, .rtext) {
+      font-size: clamp(0.95rem, 5.5vw, 1.9rem);
+    }
+  }
+
+  /* ≥641px */
+  @media (min-width: 641px) {
+    .container {
+      width: 90%;
+      padding: 1.5rem;
+    }
+
+    nav ul {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    nav a { min-height: 4rem; }
+
+    .ratio-box { max-width: 360px; }
+  }
+
+  /* ≥701px: side-by-side with explicit 50% basis again */
+  @media (min-width: 701px) {
+    .ratio-row {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .ratio-box,
+    .ratio-box-blurb {
+      flex: 1 1 50%;
+      max-width: 50%;
+    }
+
+    .about article {
+      flex-direction: row;
+      text-align: left;
+      gap: 2rem;
+    }
+  }
+}
