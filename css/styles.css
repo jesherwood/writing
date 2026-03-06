@@ -137,16 +137,9 @@
     width: 20%;
   }
 
-  .article-meta {
-    margin: 0 0 1rem;
-    font-size: 0.9em;
-    font-style: italic;
-    color: var(--fg);
-  }
-
   /* Motion safety */
   @media (prefers-reduced-motion: no-preference) {
-    :where(a, button, .interactive) {
+    :where(a, button) {
       transition:
         color 0.2s ease,
         background-color 0.2s ease,
@@ -161,12 +154,10 @@
    ========================================================================== */
 @layer components {
   /* Shared section chrome */
-  header,
   nav,
   .hero-heading,
   .container,
-  article,
-  section {
+  article {
     border: var(--dash);
     border-radius: 0;
     padding: 2rem;
@@ -350,52 +341,10 @@
     flex-grow: 1;
   }
 
-  /* Forms (scoped to .contact page) */
   .contact article { text-align: center; }
 
   .contact h3 {
     overflow: auto;
-  }
-
-  .contact form {
-    margin: 2em 0;
-    text-align: center;
-  }
-
-  .contact form div { margin-bottom: 1.5em; }
-
-  .contact label {
-    display: block;
-    margin-bottom: 0.5em;
-    color: var(--fg);
-  }
-
-  .contact :is(input[type="text"], input[type="email"], textarea, button) {
-    width: 100%;
-    font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    color: var(--bg);
-    background: var(--fg);
-    padding: 0.5rem 0.75rem;
-    border: none;
-    border-radius: 0;
-    outline-offset: 4px;
-    text-align: left;
-  }
-
-  .contact button {
-    width: 50%;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-transform: lowercase;
-    text-align: center;
-  }
-
-  .contact button:hover {
-    background: var(--bg);
-    color: var(--fg);
-    outline: var(--dash);
-    outline-offset: -2px;
   }
 }
 
@@ -409,11 +358,6 @@
 
     .ratio-box { max-width: 300px; }
 
-    .ratio-box__inner { padding: 0.5rem; }
-
-    .ratio-box__inner :is(h2, .rtext) {
-      font-size: clamp(0.95rem, 5.5vw, 1.9rem);
-    }
   }
 
   /* ≥641px */
