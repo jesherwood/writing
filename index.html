@@ -4,72 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jesse Sherwood</title>
-    <link rel="preload" href="fonts/Monoton/Monoton-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/rubik/Rubik-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="css/styles.css" as="style" />
-    <link rel="preload" as="image" href="images/deer-skeleton.jpg">
-    <link rel="preload" as="image" href="images/me.jpg">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon-red.ico">
+    <link rel="icon" type="image/x-icon" href="images/deer-favicon.ico">
 </head>
-<body>
+<body class="home has-overlay-menu">
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <div class="hero-heading" role="banner">
-        <h1 id="page-title">JESSE SHERWOOD</h1>
+        <h1 id="page-title"><a href="index.html" class="no-underline">JESSE SHERWOOD</a></h1>
+        <nav aria-label="Main navigation">
+            <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="home-menu" aria-haspopup="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="menu" id="home-menu" aria-hidden="true">
+                <ul>
+                    <li><a href="index.html" aria-current="page">Work</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
-    <nav role="navigation" aria-label="Main navigation">
-        <ul>
-            <li><a href="/" aria-current="page">Work</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li>
-        </ul>
-    </nav>
     <div class="container">
-        <main>
+        <main id="main-content" tabindex="-1">
             <h2>coming fall 2026</h2>
             <article>
                 <div class="ratio-row">
-                    <div class="ratio-box" role="img" aria-label="Decorative ratio box">
-                        <img src="images/deer-skeleton.jpg" alt="Deer skeleton in woods.">
+                    <div class="ratio-box">
+                        <img src="images/WeWereNever_Cover.jpg" alt="Book cover for We Were Never Meant to Survive This.">
                     </div>
                     <p class="ratio-box-blurb">
-                        <span class="blurb-title">Day Zero</span><br>
-                        Jaime, a web developer, is disillusioned by our immersion in the digital world and his own 
-                        hand in its creation. When a colleague returns from a survival school hidden in the Catskill 
-                        Mountains, Jaime decides, what the hell, why not?
+                        <span class="highlight">The end of the world is just the beginning...</span>
                         <br><br>
-                        Making fire with sticks, butchering animals, crafting a bow—these are a few things Jaime 
-                        will come to learn. All the while, the school’s enigmatic founder, A, whispers of Day Zero,
-                         her prophecy that the world will end and be born anew. “I’ll not bullshit you,” Jaime says,
-                          “This story is about her.”
+                        Jaime, a web developer, is disillusioned by humanity’s immersion in the digital world and his own hand in its creation. When a colleague returns from a survival school hidden in the Catskill Mountains, Jaime decides — what the hell, why not?
                         <br><br>
-                        As A’s congregation becomes more fervent, the day arrives and civilization outside of the school
-                         collapses, just as she had foreseen. In the aftermath, A’s grip tightens as she forces her
-                          followers into obedience. Jaime begins to understand that she will do anything to sculpt
-                           her vision into a reality, even as blood begins to spill.
+                        Making fire with sticks, butchering animals, crafting a bow — these are a few things Jaime will come to learn. All the while, the school’s enigmatic founder, A, whispers of Day Zero, her prophecy that the world will end and be born anew.
+                        <br><br>
+                        As A’s congregation becomes more fervent, the day arrives and civilization outside of the school collapses, just as she had foreseen. In the aftermath, A’s grip tightens as she forces her followers into obedience. Jaime begins to understand that she will do anything to sculpt her vision into a reality, even as blood begins to spill.
                     </p>
+                </div>
+                <div class="preorder">
+                    <h3 class="preorder-title">Pre-order now</h3>
+                    <ul class="preorder-list">
+                        <li class="preorder-item"><a href="https://www.thriftbooks.com/w/we-were-never-meant-to-survive-this/58795864/?resultid=b4fa8eec-c60d-46e9-a114-c35ed8d70103#isbn=B0GQX13LRD&edition=75532232" target="_blank" rel="noopener noreferrer" class="no-underline">Thriftbooks</a></li>
+                        <li class="preorder-item"><a href="https://www.barnesandnoble.com/w/we-were-never-meant-to-survive-this-jesse-sherwood/1149873364?ean=9798228569737" target="_blank" rel="noopener noreferrer" class="no-underline">Barnes & Noble</a></li>
+                        <li class="preorder-item"><a href="https://www.amazon.com/Were-Never-Meant-Survive-This/dp/B0GQX13LRD" target="_blank" rel="noopener noreferrer" class="no-underline">Amazon</a></li>
+                    </ul>
                 </div>
             </article>
             <h2>past work</h2>
             <article>
-                <a href="https://www.saturdayeveningpost.com/2020/01/all-happy-families/" target="_blank" class="no-underline">
+                <a href="https://www.saturdayeveningpost.com/2020/01/all-happy-families/" target="_blank" rel="noopener noreferrer" class="no-underline">
                     <em>Fiction</em>
                     <h3 >All Happy Families</h3>
                     <p>He would never sit around waiting for someone to die, but his three daughters find themselves doing just that, waiting at his deathbed, trying to make sense of his past and their future.</p>
                 </a>
                 <hr>
-                <a href="https://filmfreeway.com/TheWomanWithNoName" target="_blank" class="no-underline">
+                <a href="https://filmfreeway.com/TheWomanWithNoName" target="_blank" rel="noopener noreferrer" class="no-underline">
                     <em>Screenplay</em>
                     <h3>The Woman With No Name</h3>
                     <p>Violence and mayhem ensue after a nameless drifter finds herself facing off against three drug-smuggling brothers whose strip club dominates an oil boomtown turned bust-town in North Dakota.</p>
                 </a>
                 <hr>
-                <a href="https://www.guernicamag.com/kafkas-selfies/" target="_blank" class="no-underline">
+                <a href="https://www.guernicamag.com/kafkas-selfies/" target="_blank" rel="noopener noreferrer" class="no-underline">
                     <em>Review</em>
                     <h3>Kafka's Selfies</h3>
                     <p>A new collection highlights Kafka's Kardashian-esque self-reflection.</p>
                 </a>
                 <hr>
-                <a href="https://www.mcsweeneys.net/articles/translations-of-common-job-descriptions" target="_blank" class="no-underline">
+                <a href="https://www.mcsweeneys.net/articles/translations-of-common-job-descriptions" target="_blank" rel="noopener noreferrer" class="no-underline">
                     <em>Humor</em>
                     <h3>Translations of Common Job Descriptions</h3>
                     <p>"Minimum of 2 years of experience in a similar role”
