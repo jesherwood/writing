@@ -736,6 +736,7 @@
     .about img {
       width: 100%;
       height: min(50vh, 24rem);
+      object-fit: contain;
     }
 
     .contact article {
