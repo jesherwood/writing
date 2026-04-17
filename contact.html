@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Jesse Sherwood</title>
-    <link rel="preload" href="fonts/Monoton/Monoton-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/rubik/Rubik-Regular.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="css/styles.css" as="style" />
-    <link rel="preload" as="image" href="images/deer-skeleton.jpg">
-    <link rel="preload" as="image" href="images/me.jpg">
+    <title>Contact - J.E. Sherwood</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="images/favicon-orange.ico">
+    <link rel="icon" type="image/x-icon" href="images/deer-favicon.ico">
 </head>
-<body class="contact">
+<body class="contact has-overlay-menu">
+    <a href="#main-content" class="skip-link">Skip to content</a>
 
-    <!-- Hero heading -->
-    <div class="hero-heading">
-        <h1>JESSE SHERWOOD</h1>
+    <div class="hero-heading" role="banner">
+        <h1 id="page-title"><a href="index.html" class="no-underline">JESSE SHERWOOD</a></h1>
+        <nav aria-label="Main navigation">
+            <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="contact-menu" aria-haspopup="true">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="menu" id="contact-menu" aria-hidden="true">
+                <ul>
+                    <li><a href="index.html">Work</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" aria-current="page">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
 
-    <!-- Main navigation (role is implicit) -->
-    <nav aria-label="Main navigation">
-        <ul>
-            <li><a href="/">Work</a></li>
-            <li><a href="about">About</a></li>
-            <li><a href="contact" aria-current="page">Contact</a></li>
-        </ul>
-    </nav>
-
     <div class="container">
-        <main>
+        <main id="main-content" tabindex="-1">
             <h2>Contact</h2>
             <article>
                 <h3 class="rubik">
                     Jennifer Lyons Literary Agency<br>C/O Jesse Sherwood<br>
                     <a href="tel:2126755522">T:212.675.5522</a><br>
-                    <a href="mailto:jenniferlyonsagency@gmail.com?subject=For Jesse Sherwood">jenniferlyonsagency@gmail.com</a>
+                    <button id="reveal" type="button" aria-controls="email" aria-expanded="false">Email</button>
+                    <span id="email" aria-live="polite"></span>
+
                 </h3>
             </article>
         </main>
