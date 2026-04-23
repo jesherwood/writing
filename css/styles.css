@@ -153,6 +153,15 @@
 
   h3 { font-size: clamp(1rem, 4.5vw, 2rem); }
 
+  h4 {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    line-height: 1.3;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    margin: 0;
+  }
+
   h2:first-of-type {
     margin-top: 0;
     padding-top: 0;
@@ -163,6 +172,8 @@
     font-weight: 700;
     text-transform: uppercase;
   }
+
+
 
   p { margin: 0 0 1.5em; }
 
@@ -561,7 +572,8 @@
     padding-bottom: 1rem;
   }
 
-  .contact #reveal {
+  .contact #reveal,
+  .contact #reveal-media {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -579,13 +591,15 @@
     cursor: pointer;
   }
 
-  .contact #reveal:is(:hover, :focus-visible) {
+  .contact #reveal:is(:hover, :focus-visible),
+  .contact #reveal-media:is(:hover, :focus-visible) {
     color: var(--bg);
     background: var(--fg);
     outline: none;
   }
 
-  .contact #email {
+  .contact #email,
+  .contact #email-media {
     display: block;
     margin-top: 1rem;
     word-break: break-word;
@@ -749,14 +763,16 @@
       word-break: break-word;
     }
 
-    .contact #reveal {
+    .contact #reveal,
+    .contact #reveal-media {
       margin-top: 1rem;
       padding: 0.6rem 0.9rem;
       font-size: 1.2rem;
       letter-spacing: 0.12em;
     }
 
-    .contact #email {
+    .contact #email,
+    .contact #email-media {
       word-break: break-word;
     }
 
@@ -803,6 +819,17 @@
       flex-direction: row;
       text-align: left;
       gap: 2rem;
+    }
+
+    .about img {
+      flex: 1 1 50%;
+      max-width: 50%;
+      height: auto;
+    }
+
+    .about p {
+      flex: 1 1 50%;
+      max-width: 50%;
     }
   }
 }

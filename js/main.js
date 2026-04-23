@@ -59,8 +59,21 @@ document.addEventListener('DOMContentLoaded', function() {
             revealButton.hidden = true;
             revealButton.setAttribute('aria-expanded', 'true');
             const email = ['jenniferlyonsagency', 'gmail.com'].join('@');
-            emailTarget.innerHTML = `<a href="mailto:${email}">${email}</a>`;
+            emailTarget.innerHTML = `<h4><a href="mailto:${email}">${email}</a></h4>`;
             emailTarget.querySelector('a')?.focus();
+        });
+    }
+
+    const revealMediaButton = document.getElementById('reveal-media');
+    const emailMediaTarget = document.getElementById('email-media');
+
+    if (revealMediaButton && emailMediaTarget) {
+        revealMediaButton.addEventListener('click', function() {
+            revealMediaButton.hidden = true;
+            revealMediaButton.setAttribute('aria-expanded', 'true');
+            const email = ['Rebecca.Malzahn', 'BlackstonePublishing.com'].join('@');
+            emailMediaTarget.innerHTML = `<h4><a href="mailto:${email}">${email}</a></h4>`;
+            emailMediaTarget.querySelector('a')?.focus();
         });
     }
 });
