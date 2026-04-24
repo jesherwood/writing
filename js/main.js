@@ -51,29 +51,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    const revealButton = document.getElementById('reveal');
-    const emailTarget = document.getElementById('email');
-
-    if (revealButton && emailTarget) {
-        revealButton.addEventListener('click', function() {
-            revealButton.hidden = true;
-            revealButton.setAttribute('aria-expanded', 'true');
-            const email = ['jenniferlyonsagency', 'gmail.com'].join('@');
-            emailTarget.innerHTML = `<h4><a href="mailto:${email}">${email}</a></h4>`;
-            emailTarget.querySelector('a')?.focus();
+    function setupReveal(buttonId, targetId, emailParts) {
+        const btn = document.getElementById(buttonId);
+        const target = document.getElementById(targetId);
+        if (!btn || !target) return;
+        btn.addEventListener('click', function() {
+            btn.hidden = true;
+            btn.setAttribute('aria-expanded', 'true');
+            const email = emailParts.join('@');
+            target.innerHTML = `<h4><a href="mailto:${email}">${email}</a></h4>`;
+            target.querySelector('a')?.focus();
         });
     }
 
-    const revealMediaButton = document.getElementById('reveal-media');
-    const emailMediaTarget = document.getElementById('email-media');
-
-    if (revealMediaButton && emailMediaTarget) {
-        revealMediaButton.addEventListener('click', function() {
-            revealMediaButton.hidden = true;
-            revealMediaButton.setAttribute('aria-expanded', 'true');
-            const email = ['Rebecca.Malzahn', 'BlackstonePublishing.com'].join('@');
-            emailMediaTarget.innerHTML = `<h4><a href="mailto:${email}">${email}</a></h4>`;
-            emailMediaTarget.querySelector('a')?.focus();
-        });
-    }
+    setupReveal('reveal',       'email',       ['jenniferlyonsagency', 'gmail.com']);
+    setupReveal('reveal-media', 'email-media', ['Rebecca.Malzahn',     'BlackstonePublishing.com']);
 });
