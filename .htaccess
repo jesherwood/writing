@@ -1,4 +1,5 @@
 RewriteEngine On
+RewriteBase /
 
 # Redirect /index.html to /
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.html [NC]
