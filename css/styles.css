@@ -73,6 +73,9 @@
     --hover-color: #454023;
     --selection-bg: #454023;
   }
+  body.press {
+    --bg: #020122;
+  }
 
   /* Sensible defaults/reset */
   html { font-size: clamp(14px, 1.6vw, 18px); }
@@ -172,7 +175,6 @@
     font-weight: 700;
     text-transform: uppercase;
   }
-
 
 
   p { margin: 0 0 1.5em; }
@@ -326,10 +328,10 @@
   }
 
   nav a:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 4px;
-    background: transparent;
-    color: var(--fg);
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+    background: var(--fg);
+    color: var(--bg);
   }
 
   /* Hero */
@@ -429,6 +431,19 @@
     overflow-y: auto;
   }
 
+  .has-overlay-menu .menu::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('../images/stag.png') no-repeat center center / contain;
+    pointer-events: none;
+  }
+
+  body.contact .menu::before {
+    background-image: url('../images/stag_green.png');
+    filter: none;
+  }
+
   .has-overlay-menu nav.menu-open .menu {
     display: flex;
     align-items: flex-start;
@@ -437,6 +452,7 @@
   }
 
   .has-overlay-menu .menu ul {
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -558,7 +574,6 @@
     flex-grow: 2;
     height: 50vh;
     margin: 0;
-    display: block;
   }
 
   .about img {
@@ -576,7 +591,7 @@
     padding: 0.25rem 0.5rem;
     background: rgba(0, 0, 0, 0.45);
     color: #fff;
-    font-size: 0.5rem;
+    font-size: 0.75rem;
     letter-spacing: 0.04em;
   }
 
