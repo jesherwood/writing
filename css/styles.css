@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap");
+
 /* ==========================================================================
    Layering keeps cascade predictable: base → components → utilities
    ========================================================================== */
@@ -64,8 +66,8 @@
   }
   body.about {
     --bg: #EDEAD9;
-    --fg: #0E1C36;
-    --dash: 1px solid #0E1C36;
+    --fg: #3C0919;
+    --dash: 1px solid #3C0919;
     --hover-color: #ca0000;
   }
   body.contact {
@@ -311,6 +313,7 @@
     width: 100%;
     border-radius: 30px;
     text-decoration: none;
+    font-family: "Bungee Shade", "Anton", sans-serif;
     font-weight: 700;
     font-size: 1.75rem;      /* ~28px @ root 16 */
     text-transform: uppercase;
@@ -351,7 +354,8 @@
     text-align: center;
   }
 
-  .has-overlay-menu #page-title {
+  .hero-heading #page-title {
+    font-family: "Bungee Shade", "Anton", sans-serif;
     margin-inline: auto;
   }
 
@@ -431,11 +435,20 @@
   .has-overlay-menu .menu {
     position: fixed;
     inset: 0;
-    display: none;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     padding: calc(var(--overlay-control-top) + var(--overlay-control-size) + 1.5rem) 2rem 2rem;
     background: var(--bg);
     z-index: 20;
     overflow-y: auto;
+    transform-origin: right top;
+    transform: scale(0.96);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transition: transform 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms ease, visibility 0s linear 360ms;
   }
 
   .has-overlay-menu nav.menu-open .menu {
@@ -443,6 +456,11 @@
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms ease, visibility 0s linear 0s;
   }
 
   .has-overlay-menu .menu ul {
@@ -464,9 +482,10 @@
     justify-content: center;
     min-height: auto;
     padding: 0.25rem 0.5rem;
+    padding-bottom: 0.8rem;
     width: 100%;
     max-width: calc(100vw - 4rem);
-    font-family: "Anton", sans-serif;
+    font-family: "Bungee Shade", "Anton", sans-serif;
     font-size: clamp(4rem, 12vmin, 8.5rem);
     font-weight: 400;
     line-height: 0.92;
@@ -475,6 +494,7 @@
     overflow-wrap: anywhere;
     text-wrap: balance;
   }
+
 
   img {
     display: block;
@@ -527,14 +547,41 @@
   }
 
   .preorder-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
     padding: 0;
     margin: 1rem 0 0;
   }
 
   .preorder-item {
     list-style: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     text-align: center;
+  }
+
+  .preorder-item a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    min-width: 11rem;
+    padding: 0.65rem 1rem;
+    border: var(--dash);
+    border-radius: 30px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .preorder-item a:is(:hover, :focus-visible) {
+    color: var(--fg);
+    background: var(--hover-color);
+  }
+
+  .preorder-item a:hover {
+    border-color: transparent;
   }
 
   /* Blurb content */
@@ -583,7 +630,7 @@
     bottom: 0;
     right: 0;
     padding: 0.25rem 0.5rem;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.5);
     color: #fff;
     font-size: 0.75rem;
     letter-spacing: 0.04em;
