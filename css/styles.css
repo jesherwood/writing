@@ -703,7 +703,7 @@
     }
 
     h1 {
-      font-size: clamp(1.8rem, 9vw, 3rem);
+      font-size: clamp(1.8rem, 12vw, 3rem);
       letter-spacing: 0.05em;
       line-height: 1.05;
     }
@@ -764,7 +764,7 @@
       gap: 2rem;
       min-height: auto;
       justify-content: flex-start;
-      padding-block: 4rem 0;
+      padding-block: 8rem 0;
     }
 
     .has-overlay-menu .menu a {
