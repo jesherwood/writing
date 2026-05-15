@@ -10,7 +10,7 @@
   /* Fonts */
   @font-face {
     font-family: "Anton";
-    src: url("../fonts/Anton,Monoton/Anton/Anton-Regular.ttf") format("truetype");
+    src: url("../fonts/anton/Anton-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -59,13 +59,13 @@
 
   /* Page variants (scoped by body class) */
   body.home {
-    --bg: #454023;
+    --bg: #0E1C36;
     --hover-color: #ca0000;
   }
   body.about {
     --bg: #EDEAD9;
-    --fg: #454023;
-    --dash: 1px solid #454023;
+    --fg: #0E1C36;
+    --dash: 1px solid #0E1C36;
     --hover-color: #ca0000;
   }
   body.contact {
@@ -214,7 +214,7 @@
 
   /* Motion safety */
   @media (prefers-reduced-motion: no-preference) {
-    :where(a, button, .interactive) {
+    :where(a, button) {
       transition:
         color 0.2s ease,
         background-color 0.2s ease,
@@ -323,13 +323,10 @@
   nav li:hover a {
     color: var(--bg);
     background: var(--fg);
-    outline: var(--dash);
-    outline-offset: -2px;
   }
 
   nav a:focus-visible {
-    outline: 3px solid currentColor;
-    outline-offset: 3px;
+    outline: none;
     background: var(--fg);
     color: var(--bg);
   }
@@ -356,6 +353,16 @@
 
   .has-overlay-menu #page-title {
     margin-inline: auto;
+  }
+
+  body.contact #page-title a:is(:hover, :focus-visible) {
+    color: #0E1C36;
+  }
+
+  body.contact nav li:hover a,
+  body.contact nav a:focus-visible {
+    color: var(--fg);
+    background: #0E1C36;
   }
 
   .has-overlay-menu nav {
@@ -429,19 +436,6 @@
     background: var(--bg);
     z-index: 20;
     overflow-y: auto;
-  }
-
-  .has-overlay-menu .menu::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url('../images/stag.png') no-repeat center center / contain;
-    pointer-events: none;
-  }
-
-  body.contact .menu::before {
-    background-image: url('../images/stag_green.png');
-    filter: none;
   }
 
   .has-overlay-menu nav.menu-open .menu {
@@ -627,9 +621,14 @@
 
   .contact #reveal:is(:hover, :focus-visible),
   .contact #reveal-media:is(:hover, :focus-visible) {
-    color: var(--bg);
-    background: var(--fg);
+    color: var(--fg);
+    background: #0E1C36;
     outline: none;
+  }
+
+  .contact #reveal:hover,
+  .contact #reveal-media:hover {
+    border-color: transparent;
   }
 
   .contact #email,
@@ -644,14 +643,6 @@
    3) Utilities & Breakpoints (progressive enhancements)
    ========================================================================== */
 @layer utilities {
-  /* ≥421px */
-  @media (min-width: 421px) {
-    .container { padding: 1rem; }
-
-    .ratio-box { max-width: 300px; }
-
-  }
-
   @media (max-width: 640px) {
     nav,
     .hero-heading,
