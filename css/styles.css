@@ -556,8 +556,9 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.75rem;
-    padding: 0;
+    padding: 0 0 2.5rem;
     margin: 1rem 0 0;
+    border-bottom: 2px solid #ca0000;
   }
 
   .preorder-item {
@@ -592,6 +593,55 @@
   .early-reactions {
     margin-top: 2rem;
     text-align: center;
+  }
+
+  .early-reactions .preorder-title {
+    border-bottom: none;
+    font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight: 400;
+    text-transform: none;
+    font-size: clamp(1.1rem, 5vw, 1.75rem);
+  }
+
+  .reactions-heading {
+    display: none;
+  }
+
+  .reactions-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    min-width: 11rem;
+    padding: 0.65rem 1rem;
+    margin: 0;
+    border: var(--dash);
+    border-radius: 30px;
+    background: none;
+    color: inherit;
+    font-family: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .reactions-toggle:is(:hover, :focus-visible) {
+    color: var(--fg);
+    background: var(--hover-color);
+  }
+
+  .reactions-toggle:hover {
+    border-color: transparent;
+  }
+
+  .reactions-content {
+    display: none;
+  }
+
+  .reactions-content.is-open {
+    display: block;
   }
 
   .reaction {
@@ -846,6 +896,10 @@
       font-size: 1.2rem;
     }
 
+    .reactions-toggle {
+      font-size: 1.2rem;
+    }
+
     .about article {
       gap: 1rem;
     }
@@ -895,6 +949,18 @@
     .container {
       width: 90%;
       padding: 1.5rem;
+    }
+
+    .reactions-heading {
+      display: block;
+    }
+
+    .reactions-toggle {
+      display: none;
+    }
+
+    .reactions-content {
+      display: block;
     }
 
     nav ul {
