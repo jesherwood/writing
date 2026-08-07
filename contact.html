@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTQDJHLJR8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TTQDJHLJR8');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - Jesse Sherwood</title>
@@ -48,6 +57,12 @@
                     </h4>
                     <button id="reveal-media" type="button" aria-controls="email-media" aria-expanded="false" aria-label="Reveal media contact email address">Email</button>
                     <span id="email-media" aria-live="polite"></span>
+            </article>
+            <br>
+            <article>
+                <h3 class="rubik">General</h3>
+                    <button id="reveal-general" type="button" aria-controls="email-general" aria-expanded="false" aria-label="Reveal general contact email address">Email</button>
+                    <span id="email-general" aria-live="polite"></span>
             </article>
         </main>
     </div>

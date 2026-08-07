@@ -66,4 +66,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setupReveal('reveal',       'email',       ['jenniferlyonsagency', 'gmail.com']);
     setupReveal('reveal-media', 'email-media', ['Rebecca.Malzahn',     'BlackstonePublishing.com']);
+    setupReveal('reveal-general', 'email-general', ['contact', 'jessesherwood.com']);
 });

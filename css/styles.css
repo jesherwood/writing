@@ -535,6 +535,11 @@
     background: transparent;
   }
 
+  .ratio-box img {
+    object-fit: contain;
+    object-position: center;
+  }
+
   .preorder {
     display: flex;
     flex-direction: column;
@@ -582,6 +587,28 @@
 
   .preorder-item a:hover {
     border-color: transparent;
+  }
+
+  .early-reactions {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  .reaction {
+    max-width: 42rem;
+    margin: 1.5rem auto 0;
+  }
+
+  .reaction blockquote {
+    margin: 0;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .reaction figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
   }
 
   /* Blurb content */
@@ -648,7 +675,8 @@
   }
 
   .contact #reveal,
-  .contact #reveal-media {
+  .contact #reveal-media,
+  .contact #reveal-general {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -667,19 +695,22 @@
   }
 
   .contact #reveal:is(:hover, :focus-visible),
-  .contact #reveal-media:is(:hover, :focus-visible) {
+  .contact #reveal-media:is(:hover, :focus-visible),
+  .contact #reveal-general:is(:hover, :focus-visible) {
     color: var(--fg);
     background: #0E1C36;
     outline: none;
   }
 
   .contact #reveal:hover,
-  .contact #reveal-media:hover {
+  .contact #reveal-media:hover,
+  .contact #reveal-general:hover {
     border-color: transparent;
   }
 
   .contact #email,
-  .contact #email-media {
+  .contact #email-media,
+  .contact #email-general {
     display: block;
     margin-top: 1rem;
     word-break: break-word;
@@ -839,7 +870,8 @@
     }
 
     .contact #reveal,
-    .contact #reveal-media {
+    .contact #reveal-media,
+    .contact #reveal-general {
       margin-top: 1rem;
       padding: 0.6rem 0.9rem;
       font-size: 1.2rem;
@@ -847,7 +879,8 @@
     }
 
     .contact #email,
-    .contact #email-media {
+    .contact #email-media,
+    .contact #email-general {
       word-break: break-word;
     }
 
