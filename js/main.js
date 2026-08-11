@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (overlayNav && hamburger) {
         const firstVisitKey = 'menuShownThisSession';
+        const isHome = document.body.classList.contains('home');
         const setMenuState = (isOpen) => {
             overlayNav.classList.toggle('menu-open', isOpen);
             document.body.classList.toggle('menu-open', isOpen);
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.focus();
         };
 
-        const shouldOpenByDefault = !sessionStorage.getItem(firstVisitKey);
+        const shouldOpenByDefault = isHome && !sessionStorage.getItem(firstVisitKey);
         setMenuState(shouldOpenByDefault);
 
         if (shouldOpenByDefault) {
