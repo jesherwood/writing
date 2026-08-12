@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
             hamburger.focus();
         };
 
-        const shouldOpenByDefault = isHome && !sessionStorage.getItem(firstVisitKey);
+        const forceMenuClosed = new URLSearchParams(location.search).has('nomenu');
+        const shouldOpenByDefault = isHome && !forceMenuClosed && !sessionStorage.getItem(firstVisitKey);
         setMenuState(shouldOpenByDefault);
 
         if (shouldOpenByDefault) {
