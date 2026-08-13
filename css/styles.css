@@ -936,12 +936,15 @@
     }
 
     .about .photo-credit {
-      width: 100%;
+      width: auto;
+      max-width: 100%;
       height: min(50vh, 24rem);
+      aspect-ratio: 2 / 3;
     }
 
     .about img {
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center;
     }
 
     .contact article {
