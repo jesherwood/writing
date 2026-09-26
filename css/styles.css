@@ -1,3 +1,9 @@
+/* Bungee Shade — the wordmark and nav face. Pulled from Google Fonts, as it was
+   before 2026-08-10. This sends the visitor's IP to Google before they have
+   consented to anything; to close that, self-host it instead (see README) and
+   delete this line. */
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap");
+
 /* ==========================================================================
    Layering keeps cascade predictable: base → components → utilities
    ========================================================================== */
@@ -7,10 +13,13 @@
    1) Base (mobile-first defaults)
    ========================================================================== */
 @layer base {
-  /* Fonts */
+  /* Fonts. WOFF2 first — it is about a quarter the size of the TTF and has been
+     universally supported since 2016; the TTF stays as a fallback and costs no
+     extra request, since the browser only fetches the first format it knows. */
   @font-face {
     font-family: "Anton";
-    src: url("../fonts/anton/Anton-Regular.ttf") format("truetype");
+    src: url("../fonts/anton/Anton-Regular.woff2") format("woff2"),
+         url("../fonts/anton/Anton-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -18,7 +27,8 @@
 
   @font-face {
     font-family: "Rubik";
-    src: url("../fonts/rubik/Rubik-Regular.ttf") format("truetype");
+    src: url("../fonts/rubik/Rubik-Regular.woff2") format("woff2"),
+         url("../fonts/rubik/Rubik-Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -26,7 +36,8 @@
 
   @font-face {
     font-family: "Rubik";
-    src: url("../fonts/rubik/Rubik-Bold.ttf") format("truetype");
+    src: url("../fonts/rubik/Rubik-Bold.woff2") format("woff2"),
+         url("../fonts/rubik/Rubik-Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -34,7 +45,8 @@
 
   @font-face {
     font-family: "Rubik";
-    src: url("../fonts/rubik/Rubik-Italic.ttf") format("truetype");
+    src: url("../fonts/rubik/Rubik-Italic.woff2") format("woff2"),
+         url("../fonts/rubik/Rubik-Italic.ttf") format("truetype");
     font-weight: 400;
     font-style: italic;
     font-display: swap;
@@ -55,8 +67,15 @@
     /* Decor */
     --dash: 1px solid var(--fg);
 
-    /* Type stacks */
+    /* Type stacks. Self-hosted rather than pulled from fonts.googleapis.com:
+       requesting a webfont from Google hands the visitor's IP address to a
+       third party before they have consented to anything.
+
+       --font-display-alt is the wordmark and nav only; headings take
+       --font-display. Bungee Shade degrades to Anton, which is the same
+       silhouette without the drop shadow. */
     --font-sans: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --font-display: "Anton", sans-serif;
     --font-display-alt: "Bungee Shade", "Anton", sans-serif;
 
     /* Type scale root */
@@ -68,23 +87,50 @@
     --bg: #0E1C36;
     --hover-color: var(--accent-red);
   }
-  body.about {
+  body.about,
+  body.privacy {
     --bg: #EDEAD9;
     --fg: #3C0919;
     --dash: 1px solid #3C0919;
     --hover-color: var(--accent-red);
   }
+  body.about {
+    --hover-color: #55917F;
+    --selection-bg: #55917F;
+  }
+  /* Inverted from the old red page: the background red is now the type, over
+     near-black. The olive and navy that used to carry hover and selection both
+     disappear against #001514, so they hand off to the palette cream, which
+     also keeps the red legible when it sits on an accent fill. */
   body.contact {
-    --bg: #ca0000;
-    --hover-color: #454023;
-    --selection-bg: #454023;
-    --contact-accent: #0E1C36;
+    --bg: #001514;
+    --fg: var(--accent-red);
+    --hover-color: #EDEAD9;
+    --selection-bg: #EDEAD9;
+    --contact-accent: #EDEAD9;
   }
   body.press {
     --bg: #B6D094;
     --fg: var(--accent-red);
     --selection-bg: #0E1C36;
     --hover-color: var(--selection-bg);
+
+    /* #ca0000 on #B6D094 is 3.6:1 — enough for the large display type this page
+       is built on, but short of the 4.5:1 that body copy needs. Navy is already
+       in the palette and lands at ~7:1 on the green, so prose and the inverted
+       consent banner both take it. */
+    --body-fg: #0E1C36;
+    --consent-bg: #0E1C36;
+    --consent-fg: #EDEAD9;
+  }
+  /* The consent banner inverts the page it sits on, so it reads as a separate
+     layer rather than part of the page — it has to stay legible over the home
+     page's fullscreen menu, which is painted in --bg. Declared on body rather
+     than :root so each variant's own --fg/--bg are the ones that resolve. */
+  body {
+    --body-fg: var(--fg);
+    --consent-bg: var(--fg);
+    --consent-fg: var(--bg);
   }
 
   /* Sensible defaults/reset */
@@ -144,7 +190,7 @@
   /* Typography */
   h1, h2, h3 {
     margin: 0;
-    font-family: "Anton", sans-serif;
+    font-family: var(--font-display);
     font-weight: 400;
     color: var(--fg);
     line-height: 1.25;
@@ -238,23 +284,11 @@
    2) Components
    ========================================================================== */
 @layer components {
-  /* Shared section chrome */
+  /* Shared section chrome: the article is the only rounded panel — nav, the
+     hero and the footer just rule off with a single edge. */
   nav,
-  .hero-heading,
-  .container,
-  article {
-    border: var(--dash);
-    border-radius: 30px;
-    padding: 2rem;
-  }
-
-  nav,
-  .hero-heading,
-  footer {
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-radius: 0;
+  .hero-heading {
+    border-bottom: var(--dash);
   }
 
   /* Container */
@@ -264,26 +298,20 @@
     margin-inline: auto;
     margin-block: 0;
     padding: 1rem;
-    border: none;
-    flex: 1 0 auto;
-  }
-
-  .cover {
     flex: 1 0 auto;
   }
 
   /* Article */
   article {
-    padding: 2em;
-    z-index: 5;
+    border: var(--dash);
+    border-radius: 30px;
+    padding: 2rem;
   }
 
   /* Footer */
   footer {
     position: relative;
     z-index: 9;
-    display: block;
-    width: 100%;
     min-height: var(--footer-h);
     margin-top: 2rem;
     padding: 1.5rem;
@@ -296,7 +324,6 @@
   nav {
     margin-bottom: 2rem;
     padding: 0;
-    border-bottom: var(--dash);
   }
 
   nav ul {
@@ -444,6 +471,7 @@
     position: fixed;
     inset: 0;
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     padding: calc(var(--overlay-control-top) + var(--overlay-control-size) + 1.5rem) 2rem 2rem;
@@ -455,20 +483,31 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    will-change: transform, opacity;
-    transition: transform 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms ease, visibility 0s linear 360ms;
   }
 
   .has-overlay-menu nav.menu-open .menu {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
     transform: scale(1);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transition: transform 360ms cubic-bezier(.2,.8,.2,1), opacity 360ms ease, visibility 0s linear 0s;
+  }
+
+  /* Only the delay on `visibility` is load-bearing — without it the panel
+     vanishes before it has finished scaling out. */
+  @media (prefers-reduced-motion: no-preference) {
+    .has-overlay-menu .menu {
+      transition:
+        transform 360ms cubic-bezier(.2, .8, .2, 1),
+        opacity 360ms ease,
+        visibility 0s linear 360ms;
+    }
+
+    .has-overlay-menu nav.menu-open .menu {
+      transition:
+        transform 360ms cubic-bezier(.2, .8, .2, 1),
+        opacity 360ms ease,
+        visibility 0s linear 0s;
+    }
   }
 
   .has-overlay-menu .menu ul {
@@ -506,10 +545,8 @@
 
   img {
     display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center bottom;
+    max-width: 100%;
+    height: auto;
   }
 
   /* Book placeholder box ratio */
@@ -544,8 +581,9 @@
   }
 
   .ratio-box img {
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    object-position: center;
   }
 
   .preorder {
@@ -650,18 +688,7 @@
   /* Blurb content */
   .ratio-box-blurb { line-height: 1.4; }
 
-  /* Aspect-ratio fallback */
-  @supports not (aspect-ratio: 1/1) {
-    .ratio-box {
-      height: 0;
-      padding-top: calc(6 / 4 * 100%); /* 4:6 ratio */
-    }
-
-    .ratio-box > * {
-      position: absolute;
-      inset: 0;
-    }
-  }
+  .ratio-box-blurb p:last-child { margin-bottom: 0; }
 
   .about article {
     display: flex;
@@ -680,7 +707,7 @@
     margin: 0;
   }
 
-  .about img {
+  .about .photo-credit img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -699,9 +726,39 @@
     letter-spacing: 0.04em;
   }
 
-  .about p {
-    text-align: left;
+  .about .bio {
     flex-grow: 1;
+  }
+
+  .about .bio p {
+    text-align: left;
+    margin: 0;
+  }
+
+  .about .social {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+  }
+
+  /* Inline SVG rather than an image file: it inherits `color`, so the icon
+     tracks the page palette, and it renders over file:// as well as http.
+     Box is 2.75rem/44px square to meet the minimum touch-target size. */
+  .about .social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .about .social a:is(:hover, :focus-visible) {
+    color: var(--hover-color);
+  }
+
+  .about .social .glyph {
+    width: 1.75rem;
+    height: 1.75rem;
   }
 
   /* Forms (scoped to .contact page) */
@@ -710,9 +767,7 @@
     padding-bottom: 1rem;
   }
 
-  .contact #reveal,
-  .contact #reveal-media,
-  .contact #reveal-general {
+  .contact .reveal-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -730,9 +785,7 @@
     cursor: pointer;
   }
 
-  .contact #reveal:is(:hover, :focus-visible),
-  .contact #reveal-media:is(:hover, :focus-visible),
-  .contact #reveal-general:is(:hover, :focus-visible) {
+  .contact .reveal-btn:is(:hover, :focus-visible) {
     color: var(--fg);
     background: var(--contact-accent);
     outline: none;
@@ -740,18 +793,216 @@
 
   .preorder-item a:hover,
   .reactions-toggle:hover,
-  .contact #reveal:hover,
-  .contact #reveal-media:hover,
-  .contact #reveal-general:hover {
+  .contact .reveal-btn:hover {
     border-color: transparent;
   }
 
-  .contact #email,
-  .contact #email-media,
-  .contact #email-general {
+  .contact .reveal-target {
     display: block;
     margin-top: 1rem;
     word-break: break-word;
+  }
+
+  /* Was a run of <br> between the three contact cards. */
+  .contact article + article {
+    margin-top: 1.5rem;
+  }
+
+  /* Footer */
+  .footer-line,
+  .footer-links {
+    margin: 0;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .footer-consent {
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .footer-links a:is(:hover, :focus-visible),
+  .footer-consent:is(:hover, :focus-visible) {
+    color: var(--hover-color);
+  }
+
+  /* ---- Consent banner ---------------------------------------------------
+     The overlay menu's z-index of 20 is scoped to .hero-heading, which opens a
+     stacking context (position: sticky + z-index: 15). So the menu competes at
+     15 in the root context, and 30 here clears it — the banner stays on top of
+     the home page's first-visit menu.
+
+     Colours come from --consent-bg/--consent-fg, which invert the page (see the
+     page-variant block), so the panel separates from the fullscreen menu behind
+     it by fill rather than by a border it would otherwise share a colour with. */
+  .consent-banner {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 30;
+    max-width: 34rem;
+    margin-inline: auto;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--consent-fg);
+    border-radius: 20px;
+    background: var(--consent-bg);
+    color: var(--consent-fg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .consent-banner[hidden] {
+    display: none;
+  }
+
+  /* The base layer paints headings and links in --fg; these sit in the
+     components layer, so they win over it regardless of specificity. */
+  .consent-banner__title {
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    color: var(--consent-fg);
+  }
+
+  .consent-banner__text {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .consent-banner__text a,
+  .consent-banner__text a:is(:hover, :focus-visible) {
+    color: var(--consent-fg);
+  }
+
+  .consent-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* Accept and Decline are deliberately identical: nudging visitors toward
+     one answer would undermine consent being freely given. */
+  .consent-btn {
+    flex: 1 1 8rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--consent-fg);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--consent-fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .consent-btn:is(:hover, :focus-visible) {
+    color: var(--consent-bg);
+    background: var(--consent-fg);
+  }
+
+  /* ---- Legal pages ----------------------------------------------------- */
+  .legal {
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .legal h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .legal h4 {
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .legal-updated {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+
+  .legal ul {
+    margin: 0 0 1.5em;
+    padding-left: 1.25rem;
+  }
+
+  .legal li {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Keeps the four-column table usable on narrow screens without collapsing
+     it to blocks, which would cost the row/header associations. */
+  .legal-table-scroll {
+    margin-bottom: 1.5em;
+    overflow-x: auto;
+  }
+
+  .legal-table-scroll:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+  }
+
+  .legal-table {
+    width: 100%;
+    min-width: 30rem;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .legal-table th,
+  .legal-table td {
+    padding: 0.6rem 0.5rem;
+    border-bottom: var(--dash);
+    vertical-align: top;
+  }
+
+  .legal-table th {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .legal-table code {
+    font-size: 0.95em;
+    overflow-wrap: anywhere;
+  }
+
+  .consent-inline-btn {
+    min-height: 2.75rem;
+    padding: 0.5rem 1.25rem;
+    border: var(--dash);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .consent-inline-btn:is(:hover, :focus-visible) {
+    color: var(--bg);
+    background: var(--fg);
   }
 
   /* Press grid */
@@ -781,11 +1032,25 @@
     margin-bottom: 1rem;
   }
 
+  /* Spans every column of the grid and shows its banner uncropped. */
+  .press-item--full {
+    grid-column: 1 / -1;
+  }
+
+  .press-item--full img {
+    aspect-ratio: auto;
+  }
+
+  /* Prose colour is set on the card rather than the page so the heading inside
+     it keeps the display red. */
+  .press-item {
+    color: var(--body-fg);
+  }
+
   .press-item em {
     font-size: 0.9rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    opacity: 0.8;
   }
 
   .press-item h3 {
@@ -802,12 +1067,33 @@
    3) Utilities & Breakpoints (progressive enhancements)
    ========================================================================== */
 @layer utilities {
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip-path: inset(50%);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
   @media (max-width: 640px) {
-    nav,
-    .hero-heading,
-    .container,
-    article {
+    .consent-banner {
+      right: 0.5rem;
+      bottom: 0.5rem;
+      left: 0.5rem;
       padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .consent-banner__text {
+      font-size: 0.85rem;
+    }
+
+    .legal h3 {
+      margin-top: 2rem;
     }
 
     body {
@@ -870,6 +1156,7 @@
         calc(var(--overlay-control-top) + var(--overlay-control-size) + 1rem)
         1rem
         1rem;
+      justify-content: flex-start;
     }
 
     .has-overlay-menu .menu ul {
@@ -885,11 +1172,6 @@
       line-height: 0.9;
       letter-spacing: 0.05em;
       padding: 0.15rem 0.25rem;
-    }
-
-    .has-overlay-menu nav.menu-open .menu {
-
-      justify-content: flex-start;
     }
 
     article {
@@ -942,7 +1224,7 @@
       aspect-ratio: 2 / 3;
     }
 
-    .about img {
+    .about .photo-credit img {
       object-fit: cover;
       object-position: center;
     }
@@ -957,19 +1239,11 @@
       word-break: break-word;
     }
 
-    .contact #reveal,
-    .contact #reveal-media,
-    .contact #reveal-general {
+    .contact .reveal-btn {
       margin-top: 1rem;
       padding: 0.6rem 0.9rem;
       font-size: 1.2rem;
       letter-spacing: 0.12em;
-    }
-
-    .contact #email,
-    .contact #email-media,
-    .contact #email-general {
-      word-break: break-word;
     }
 
     footer {
@@ -1043,11 +1317,11 @@
       height: auto;
     }
 
-    .about img {
+    .about .photo-credit img {
       height: 100%;
     }
 
-    .about p {
+    .about .bio {
       flex: 1 1 50%;
       max-width: 50%;
     }

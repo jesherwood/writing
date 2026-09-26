@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTQDJHLJR8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-TTQDJHLJR8');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Contact - Jesse Sherwood</title>
     <meta name="description" content="Literary representation, media, and general contact information for author Jesse Sherwood, author of We Were Never Meant to Survive This.">
     <link rel="canonical" href="https://www.jessesherwood.com/contact">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preload" href="fonts/anton/Anton-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/rubik/Rubik-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" type="image/x-icon" href="images/js-favicon.ico">
+    <!-- Google Analytics, loaded only after opt-in. See js/consent.js -->
+    <script src="js/consent.js" defer></script>
+    <script src="js/main.js" defer></script>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Jesse Sherwood">
     <meta property="og:url" content="https://www.jessesherwood.com/contact">
@@ -28,24 +27,18 @@
     <meta name="twitter:title" content="Contact - Jesse Sherwood">
     <meta name="twitter:description" content="Literary representation, media, and general contact information for author Jesse Sherwood.">
     <meta name="twitter:image" content="https://www.jessesherwood.com/images/WeWereNever_Cover.jpg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="images/js-favicon.ico">
 </head>
 <body class="contact has-overlay-menu">
     <a href="#main-content" class="skip-link">Skip to content</a>
-
-    <div class="hero-heading" role="banner">
+    <header class="hero-heading">
         <h1 id="page-title"><a href="/" class="no-underline">JESSE SHERWOOD</a></h1>
-        <nav aria-label="Main navigation">
-            <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="contact-menu" aria-haspopup="true">
+        <nav aria-label="Main">
+            <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="site-menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-            <div class="menu" id="contact-menu" aria-hidden="true">
+            <div class="menu" id="site-menu" inert>
                 <ul>
                     <li><a href="/">Work</a></li>
                     <li><a href="about">About</a></li>
@@ -54,39 +47,43 @@
                 </ul>
             </div>
         </nav>
-    </div>
-
+    </header>
     <div class="container">
         <main id="main-content" tabindex="-1">
             <h2>Contact</h2>
+
+            <!-- Addresses are assembled by js/main.js rather than written into the
+                 markup, so they are not sitting in the page source for scrapers; the attribute is only a key. -->
             <article>
                 <h3 class="rubik">General Contact</h3>
-                    <button id="reveal-general" type="button" aria-controls="email-general" aria-expanded="false" aria-label="Reveal general contact email address">Email</button>
-                    <span id="email-general" aria-live="polite"></span>
+                <button type="button" class="reveal-btn" data-reveal="general" aria-label="Reveal general contact email address">Email</button>
+                <span class="reveal-target"></span>
             </article>
-            <br>
             <article>
                 <h3 class="rubik">Representation</h3>
-                    <h4>Jennifer Lyons<br>
+                <h4>Jennifer Lyons<br>
                     Jennifer Lyons Literary Agency<br>
-                    <a href="tel:2126755522">T:212.675.5522</a>
-                    </h4>
-                    <button id="reveal" type="button" aria-controls="email" aria-expanded="false" aria-label="Reveal representation email address">Email</button>
-                    <span id="email" aria-live="polite"></span>
+                    <a href="tel:+12126755522">T: 212.675.5522</a>
+                </h4>
+                <button type="button" class="reveal-btn" data-reveal="agent" aria-label="Reveal representation email address">Email</button>
+                <span class="reveal-target"></span>
             </article>
-            <br>
             <article>
                 <h3 class="rubik">Media</h3>
-                    <h4>Rebecca Malzahn<br>
-                        Blackstone Publishing
-                    </h4>
-                    <button id="reveal-media" type="button" aria-controls="email-media" aria-expanded="false" aria-label="Reveal media contact email address">Email</button>
-                    <span id="email-media" aria-live="polite"></span>
+                <h4>Rebecca Malzahn<br>
+                    Blackstone Publishing
+                </h4>
+                <button type="button" class="reveal-btn" data-reveal="media" aria-label="Reveal media contact email address">Email</button>
+                <span class="reveal-target"></span>
             </article>
         </main>
     </div>
-    <footer></footer>
-
-    <script src="js/main.js"></script>
+    <footer>
+        <p class="footer-line">&copy; <span data-year>2026</span> Jesse Sherwood</p>
+        <p class="footer-links">
+            <a href="privacy">Privacy &amp; Cookies</a>
+            <button type="button" class="footer-consent" data-consent-open>Cookie settings</button>
+        </p>
+    </footer>
 </body>
 </html>

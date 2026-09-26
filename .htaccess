@@ -13,6 +13,14 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^([^.]+)$ $1.html [NC,L]
 
+# Privacy headers. GitHub Pages ignores .htaccess, so the referrer policy is
+# also set via <meta name="referrer"> on each page; this covers Apache hosting.
+<IfModule mod_headers.c>
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), interest-cohort=()"
+</IfModule>
+
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml
 </IfModule>
@@ -23,5 +31,6 @@ RewriteRule ^([^.]+)$ $1.html [NC,L]
     ExpiresByType application/javascript "access plus 1 year"
     ExpiresByType image/jpeg "access plus 1 year"
     ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
     ExpiresByType font/ttf "access plus 1 year"
 </IfModule>
