@@ -3,16 +3,20 @@ Personal website 2025
 
 ## Privacy
 
-Nothing third-party loads until a visitor opts in:
-
 - **Google Analytics** is gated by [`js/consent.js`](js/consent.js). If the
   visitor declines or ignores the banner, `googletagmanager.com` is never
   contacted. The consent control in the footer reopens the banner so a choice
   can be withdrawn.
-- **Fonts are self-hosted** under [`fonts/`](fonts/). Do not re-add
-  `fonts.googleapis.com` links — they leak visitor IPs to Google before consent.
+- **Fonts are self-hosted** under [`fonts/`](fonts/) — with one exception,
+  Bungee Shade, which still loads from `fonts.googleapis.com` on every page
+  view, before any consent (see below). Do not add further
+  `fonts.googleapis.com` links; they leak visitor IPs to Google before consent.
 - [`privacy.html`](privacy.html) is the GDPR Art. 13 notice. Update it whenever
   a new third party, cookie or form is added.
+
+So one third-party request *does* fire before opt-in. It is disclosed in
+`privacy.html` under legitimate interests, and closing it is the single biggest
+remaining privacy win — see "Bungee Shade is the one exception" below.
 
 ## Fonts
 

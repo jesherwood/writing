@@ -67,9 +67,11 @@
     /* Decor */
     --dash: 1px solid var(--fg);
 
-    /* Type stacks. Self-hosted rather than pulled from fonts.googleapis.com:
+    /* Type stacks. Rubik and Anton are self-hosted under fonts/, because
        requesting a webfont from Google hands the visitor's IP address to a
-       third party before they have consented to anything.
+       third party before they have consented to anything. Bungee Shade is the
+       one exception and still comes from the @import at the top of this file —
+       see the note there and in the README.
 
        --font-display-alt is the wordmark and nav only; headings take
        --font-display. Bungee Shade degrades to Anton, which is the same
@@ -86,6 +88,13 @@
   body.home {
     --bg: #0E1C36;
     --hover-color: var(--accent-red);
+    /* Menu links and the hamburger share one highlight: the page red, with the
+       page navy as the type and as the hamburger's border. Navy on #ca0000 is
+       2.8:1 — under 3:1, so it clears neither the large-text bar the overlay
+       links sit at nor the one a UI control wants. Swapping --nav-ink back to
+       the cream --fg would make it 4.9:1 if it reads too dim on a real screen. */
+    --nav-fill: var(--accent-red);
+    --burger-edge: var(--burger-ink);
   }
   body.about,
   body.privacy {
@@ -97,23 +106,48 @@
   body.about {
     --hover-color: #55917F;
     --selection-bg: #55917F;
+    /* The pill picks up the same green the page's links and selection use, and
+       keeps the page's cream as the type. That lands at 3.0:1, which carries
+       because every nav link here is inside the overlay panel at 4rem and up —
+       large text, so the bar is 3:1. Don't reuse this pairing for body copy. */
+    --nav-fill: var(--hover-color);
+    --burger-edge: var(--burger-ink);
   }
-  /* Inverted from the old red page: the background red is now the type, over
-     near-black. The olive and navy that used to carry hover and selection both
-     disappear against #001514, so they hand off to the palette cream, which
-     also keeps the red legible when it sits on an accent fill. */
+  /* Back to the red ground, with the press page's green as the type and the
+     rules. Green on this red is 3.5:1 — it carries the large display type the
+     page is built from, and the 3:1 bar for borders and the nav fill, but it
+     is under the 4.5:1 that body copy needs, so don't set prose in it here.
+     --dash has to be restated: the :root copy resolved var(--fg) against the
+     :root cream when it was declared, so it does not follow this --fg. */
   body.contact {
-    --bg: #001514;
-    --fg: var(--accent-red);
-    --hover-color: #EDEAD9;
-    --selection-bg: #EDEAD9;
-    --contact-accent: #EDEAD9;
+    --bg: #CA0001;
+    --fg: #B6D094;
+    --dash: 1px solid #B6D094;
+    --hover-color: #073B3A;
+    --selection-bg: #073B3A;
+    --contact-accent: #073B3A;
+
+    /* Menu items and the hamburger fill with the teal; --nav-ink is left at
+       the body default, which is the page red. The hamburger drops its border
+       on hover and cuts its bars out of the fill in that same red, so it reads
+       as a plain filled square. */
+    --nav-fill: var(--hover-color);
+    --burger-edge: transparent;
   }
   body.press {
     --bg: #B6D094;
     --fg: var(--accent-red);
     --selection-bg: #0E1C36;
     --hover-color: var(--selection-bg);
+
+    /* Menu links and the hamburger share the navy highlight, with the page
+       green as the type — the same pairing the hamburger bars and the open
+       panel's "X" use, so the whole nav reads as one piece. --nav-ink is left
+       at the body default, which is this page's green: 10:1 on the navy.
+       --burger-fill follows --nav-fill on its own, so it needs no restating. */
+    --nav-fill: var(--hover-color);
+    --burger-ink: var(--fg);
+    --burger-edge: transparent;
 
     /* #ca0000 on #B6D094 is 3.6:1 — enough for the large display type this page
        is built on, but short of the 4.5:1 that body copy needs. Navy is already
@@ -131,6 +165,20 @@
     --body-fg: var(--fg);
     --consent-bg: var(--fg);
     --consent-fg: var(--bg);
+
+    /* The fill behind a hovered or focused nav item. Defaults to a straight
+       inversion of the page; variants with an accent of their own point these
+       at it instead, so the menu reads as part of the page it belongs to. */
+    --nav-fill: var(--fg);
+    --nav-ink: var(--bg);
+
+    /* The hamburger follows that highlight unless a page says otherwise. Its
+       border defaults to the --dash colour, which on an --fg fill is the fill's
+       own colour and so leaves no ring; a page that fills with an accent points
+       --burger-edge at the ink instead, so the border joins the bars. */
+    --burger-fill: var(--nav-fill);
+    --burger-ink: var(--nav-ink);
+    --burger-edge: var(--fg);
   }
 
   /* Sensible defaults/reset */
@@ -200,7 +248,6 @@
 
   h1 {
     font-size: clamp(2rem, 7vw, 5rem);
-    letter-spacing: 0.08em;
     line-height: 1.2;
   }
 
@@ -359,14 +406,14 @@
   nav li:hover { cursor: pointer; }
 
   nav li:hover a {
-    color: var(--bg);
-    background: var(--fg);
+    color: var(--nav-ink);
+    background: var(--nav-fill);
   }
 
   nav a:focus-visible {
     outline: none;
-    background: var(--fg);
-    color: var(--bg);
+    background: var(--nav-fill);
+    color: var(--nav-ink);
   }
 
   /* Hero */
@@ -381,12 +428,15 @@
     color: var(--fg);
   }
 
+  /* Reserve room for the hamburger on both sides, so the wordmark stays
+     optically centred. Derived from the control tokens rather than repeating
+     their values, which is what keeps it correct when the ≤640px block
+     redefines them. */
   .has-overlay-menu .hero-heading {
     --overlay-control-size: 3.5rem;
     --overlay-control-offset: 2rem;
     --overlay-control-top: 0.5rem;
-    padding-inline: calc(3.5rem + 2rem);
-    text-align: center;
+    padding-inline: calc(var(--overlay-control-size) + var(--overlay-control-offset));
   }
 
   .hero-heading #page-title {
@@ -396,12 +446,6 @@
 
   body.contact #page-title a:is(:hover, :focus-visible) {
     color: var(--contact-accent);
-  }
-
-  body.contact nav li:hover a,
-  body.contact nav a:focus-visible {
-    color: var(--fg);
-    background: var(--contact-accent);
   }
 
   .has-overlay-menu nav {
@@ -462,9 +506,31 @@
   }
 
   .has-overlay-menu .hamburger:is(:hover, :focus-visible) {
-    color: var(--bg);
-    background: var(--fg);
+    color: var(--burger-ink);
+    background: var(--burger-fill);
+    border-color: var(--burger-edge);
     outline: none;
+  }
+
+  /* The open-state fill above is (0,3,1) — the `nav` type selector — against
+     (0,3,0) for the hover rule, so it wins on specificity and no source order
+     can let a hover through. Restating it with `nav.menu-open` is what puts the
+     highlight back on the close button. The "X" keeps the page colour it
+     already had, so it stays cut out of the fill rather than inheriting
+     --burger-ink, which on press would be red on navy. */
+  .has-overlay-menu nav.menu-open .hamburger:is(:hover, :focus-visible) {
+    background: var(--burger-fill);
+    border-color: var(--burger-edge);
+  }
+
+  /* Press and contact both flip the bars to the page colour on hover, so they
+     read as cut out of the fill. Scoped to the spans rather than done through
+     --burger-ink, because that colour is also the "X" the button shows while
+     the panel is open — hovering the close control would recolour its glyph
+     too. */
+  body.press .hamburger:is(:hover, :focus-visible) span,
+  body.contact .hamburger:is(:hover, :focus-visible) span {
+    background: var(--bg);
   }
 
   .has-overlay-menu .menu {
@@ -628,27 +694,20 @@
     text-transform: uppercase;
   }
 
+  /* Same highlight as the nav and the hamburger. These only appear on the home
+     page, so the tokens resolve to its red fill and navy ink — but unlike the
+     overlay links these sit at 1rem, which is normal text: navy on #ca0000 is
+     2.8:1 against the 4.5:1 that wants. --nav-ink: var(--fg) on body.home
+     takes every one of them back to cream at 4.9:1 in a single line. */
   .preorder-item a:is(:hover, :focus-visible),
   .reactions-toggle:is(:hover, :focus-visible) {
-    color: var(--fg);
-    background: var(--hover-color);
+    color: var(--nav-ink);
+    background: var(--nav-fill);
   }
 
   .early-reactions {
     margin-top: 2rem;
     text-align: center;
-  }
-
-  .early-reactions .preorder-title {
-    border-bottom: none;
-    font-family: var(--font-sans);
-    font-weight: 400;
-    text-transform: none;
-    font-size: clamp(1.1rem, 5vw, 1.75rem);
-  }
-
-  .reactions-heading {
-    display: none;
   }
 
   .reactions-toggle {
@@ -712,7 +771,6 @@
     height: 100%;
     object-fit: cover;
     filter: grayscale(1) sepia(0.3) saturate(0.6) brightness(1.2) contrast(0.9);
-    display: block;
   }
 
   .about .photo-credit figcaption {
@@ -761,7 +819,8 @@
     height: 1.75rem;
   }
 
-  /* Forms (scoped to .contact page) */
+  /* Contact page. There is no form here — the three cards each reveal an
+     address through a button, so nothing is ever submitted to this site. */
   .contact article {
     text-align: center;
     padding-bottom: 1rem;
@@ -772,13 +831,13 @@
     align-items: center;
     justify-content: center;
     margin-top: 1.5rem;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1.5rem;
     border: var(--dash);
     border-radius: 30px;
     background: transparent;
     color: var(--fg);
-    font-family: var(--font-sans);
-    font-size: 2rem;
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
     letter-spacing: 0.2em;
     font-weight: 700;
     text-transform: uppercase;
@@ -786,7 +845,7 @@
   }
 
   .contact .reveal-btn:is(:hover, :focus-visible) {
-    color: var(--fg);
+    color: var(--bg);
     background: var(--contact-accent);
     outline: none;
   }
@@ -1012,12 +1071,15 @@
     gap: 1.5rem;
   }
 
+  /* Prose colour is set on the card rather than the page so the heading inside
+     it keeps the display red. */
   .press-item {
     display: flex;
     flex-direction: column;
     border: var(--dash);
     border-radius: 20px;
     padding: 1.5rem;
+    color: var(--body-fg);
   }
 
   .press-item:is(:hover, :focus-visible) {
@@ -1039,12 +1101,6 @@
 
   .press-item--full img {
     aspect-ratio: auto;
-  }
-
-  /* Prose colour is set on the card rather than the page so the heading inside
-     it keeps the display red. */
-  .press-item {
-    color: var(--body-fg);
   }
 
   .press-item em {
@@ -1143,7 +1199,6 @@
       display: block;
       margin: 0;
       padding: 1rem 0 0 0;
-      z-index: 21;
     }
 
     .has-overlay-menu .hamburger {
@@ -1225,7 +1280,6 @@
     }
 
     .about .photo-credit img {
-      object-fit: cover;
       object-position: center;
     }
 
@@ -1261,18 +1315,6 @@
     .container {
       width: 90%;
       padding: 1.5rem;
-    }
-
-    .reactions-heading {
-      display: block;
-    }
-
-    .reactions-toggle {
-      display: none;
-    }
-
-    .reactions-content {
-      display: block;
     }
 
     nav ul {
