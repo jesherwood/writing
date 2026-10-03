@@ -1,21 +1,12 @@
-/* Bungee Shade — the wordmark and nav face. Pulled from Google Fonts, as it was
-   before 2026-08-10. This sends the visitor's IP to Google before they have
-   consented to anything; to close that, self-host it instead (see README) and
-   delete this line. */
+/* Bungee Shade from Google — see README on self-hosting. */
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap");
 
-/* ==========================================================================
-   Layering keeps cascade predictable: base → components → utilities
-   ========================================================================== */
+/* Layering keeps cascade predictable: base → components → utilities */
 @layer base, components, utilities;
 
-/* ==========================================================================
-   1) Base (mobile-first defaults)
-   ========================================================================== */
+/* 1) Base (mobile-first defaults) */
 @layer base {
-  /* Fonts. WOFF2 first — it is about a quarter the size of the TTF and has been
-     universally supported since 2016; the TTF stays as a fallback and costs no
-     extra request, since the browser only fetches the first format it knows. */
+  /* WOFF2 first, TTF fallback. */
   @font-face {
     font-family: "Anton";
     src: url("../fonts/anton/Anton-Regular.woff2") format("woff2"),
@@ -67,15 +58,7 @@
     /* Decor */
     --dash: 1px solid var(--fg);
 
-    /* Type stacks. Rubik and Anton are self-hosted under fonts/, because
-       requesting a webfont from Google hands the visitor's IP address to a
-       third party before they have consented to anything. Bungee Shade is the
-       one exception and still comes from the @import at the top of this file —
-       see the note there and in the README.
-
-       --font-display-alt is the wordmark and nav only; headings take
-       --font-display. Bungee Shade degrades to Anton, which is the same
-       silhouette without the drop shadow. */
+    /* Type stacks. --font-display-alt is wordmark/nav only. */
     --font-sans: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     --font-display: "Anton", sans-serif;
     --font-display-alt: "Bungee Shade", "Anton", sans-serif;
@@ -88,11 +71,7 @@
   body.home {
     --bg: #0E1C36;
     --hover-color: var(--accent-red);
-    /* Menu links and the hamburger share one highlight: the page red, with the
-       page navy as the type and as the hamburger's border. Navy on #ca0000 is
-       2.8:1 — under 3:1, so it clears neither the large-text bar the overlay
-       links sit at nor the one a UI control wants. Swapping --nav-ink back to
-       the cream --fg would make it 4.9:1 if it reads too dim on a real screen. */
+    /* Nav + hamburger highlight. */
     --nav-fill: var(--accent-red);
     --burger-edge: var(--burger-ink);
   }
@@ -106,19 +85,11 @@
   body.about {
     --hover-color: #55917F;
     --selection-bg: #55917F;
-    /* The pill picks up the same green the page's links and selection use, and
-       keeps the page's cream as the type. That lands at 3.0:1, which carries
-       because every nav link here is inside the overlay panel at 4rem and up —
-       large text, so the bar is 3:1. Don't reuse this pairing for body copy. */
+    /* Pill: page green on cream, large text only. */
     --nav-fill: var(--hover-color);
     --burger-edge: var(--burger-ink);
   }
-  /* Back to the red ground, with the press page's green as the type and the
-     rules. Green on this red is 3.5:1 — it carries the large display type the
-     page is built from, and the 3:1 bar for borders and the nav fill, but it
-     is under the 4.5:1 that body copy needs, so don't set prose in it here.
-     --dash has to be restated: the :root copy resolved var(--fg) against the
-     :root cream when it was declared, so it does not follow this --fg. */
+  /* Red ground, green type. --dash restated: :root's copy already resolved. */
   body.contact {
     --bg: #CA0001;
     --fg: #B6D094;
@@ -127,10 +98,7 @@
     --selection-bg: #073B3A;
     --contact-accent: #073B3A;
 
-    /* Menu items and the hamburger fill with the teal; --nav-ink is left at
-       the body default, which is the page red. The hamburger drops its border
-       on hover and cuts its bars out of the fill in that same red, so it reads
-       as a plain filled square. */
+    /* Menu and hamburger fill with the teal. */
     --nav-fill: var(--hover-color);
     --burger-edge: transparent;
   }
@@ -140,42 +108,27 @@
     --selection-bg: #0E1C36;
     --hover-color: var(--selection-bg);
 
-    /* Menu links and the hamburger share the navy highlight, with the page
-       green as the type — the same pairing the hamburger bars and the open
-       panel's "X" use, so the whole nav reads as one piece. --nav-ink is left
-       at the body default, which is this page's green: 10:1 on the navy.
-       --burger-fill follows --nav-fill on its own, so it needs no restating. */
+    /* Nav and hamburger share the navy highlight. */
     --nav-fill: var(--hover-color);
     --burger-ink: var(--fg);
     --burger-edge: transparent;
 
-    /* #ca0000 on #B6D094 is 3.6:1 — enough for the large display type this page
-       is built on, but short of the 4.5:1 that body copy needs. Navy is already
-       in the palette and lands at ~7:1 on the green, so prose and the inverted
-       consent banner both take it. */
+    /* Red is short of 4.5:1 here, so prose takes the navy. */
     --body-fg: #0E1C36;
     --consent-bg: #0E1C36;
     --consent-fg: #EDEAD9;
   }
-  /* The consent banner inverts the page it sits on, so it reads as a separate
-     layer rather than part of the page — it has to stay legible over the home
-     page's fullscreen menu, which is painted in --bg. Declared on body rather
-     than :root so each variant's own --fg/--bg are the ones that resolve. */
+  /* Consent banner inverts its page. On body so variants resolve. */
   body {
     --body-fg: var(--fg);
     --consent-bg: var(--fg);
     --consent-fg: var(--bg);
 
-    /* The fill behind a hovered or focused nav item. Defaults to a straight
-       inversion of the page; variants with an accent of their own point these
-       at it instead, so the menu reads as part of the page it belongs to. */
+    /* Fill behind a hovered/focused nav item. */
     --nav-fill: var(--fg);
     --nav-ink: var(--bg);
 
-    /* The hamburger follows that highlight unless a page says otherwise. Its
-       border defaults to the --dash colour, which on an --fg fill is the fill's
-       own colour and so leaves no ring; a page that fills with an accent points
-       --burger-edge at the ink instead, so the border joins the bars. */
+    /* Hamburger follows that highlight. */
     --burger-fill: var(--nav-fill);
     --burger-ink: var(--nav-ink);
     --burger-edge: var(--fg);
@@ -327,12 +280,9 @@
   }
 }
 
-/* ==========================================================================
-   2) Components
-   ========================================================================== */
+/* 2) Components */
 @layer components {
-  /* Shared section chrome: the article is the only rounded panel — nav, the
-     hero and the footer just rule off with a single edge. */
+  /* Article is the only rounded panel; the rest rule off. */
   nav,
   .hero-heading {
     border-bottom: var(--dash);
@@ -402,7 +352,7 @@
     color: var(--fg);
   }
 
-  /* Hover/focus: separate pointer and keyboard states */
+  /* Separate pointer and keyboard states */
   nav li:hover { cursor: pointer; }
 
   nav li:hover a {
@@ -428,10 +378,7 @@
     color: var(--fg);
   }
 
-  /* Reserve room for the hamburger on both sides, so the wordmark stays
-     optically centred. Derived from the control tokens rather than repeating
-     their values, which is what keeps it correct when the ≤640px block
-     redefines them. */
+  /* Reserve room for the hamburger so the wordmark stays centred. */
   .has-overlay-menu .hero-heading {
     --overlay-control-size: 3.5rem;
     --overlay-control-offset: 2rem;
@@ -512,22 +459,13 @@
     outline: none;
   }
 
-  /* The open-state fill above is (0,3,1) — the `nav` type selector — against
-     (0,3,0) for the hover rule, so it wins on specificity and no source order
-     can let a hover through. Restating it with `nav.menu-open` is what puts the
-     highlight back on the close button. The "X" keeps the page colour it
-     already had, so it stays cut out of the fill rather than inheriting
-     --burger-ink, which on press would be red on navy. */
+  /* Restated so the open-state fill does not block the close button's hover. */
   .has-overlay-menu nav.menu-open .hamburger:is(:hover, :focus-visible) {
     background: var(--burger-fill);
     border-color: var(--burger-edge);
   }
 
-  /* Press and contact both flip the bars to the page colour on hover, so they
-     read as cut out of the fill. Scoped to the spans rather than done through
-     --burger-ink, because that colour is also the "X" the button shows while
-     the panel is open — hovering the close control would recolour its glyph
-     too. */
+  /* Bars cut out of the fill on hover. Spans only, not --burger-ink. */
   body.press .hamburger:is(:hover, :focus-visible) span,
   body.contact .hamburger:is(:hover, :focus-visible) span {
     background: var(--bg);
@@ -558,8 +496,7 @@
     pointer-events: auto;
   }
 
-  /* Only the delay on `visibility` is load-bearing — without it the panel
-     vanishes before it has finished scaling out. */
+  /* The `visibility` delay is load-bearing; without it the panel pops. */
   @media (prefers-reduced-motion: no-preference) {
     .has-overlay-menu .menu {
       transition:
@@ -623,10 +560,10 @@
     gap: 0;
   }
 
-  /* IMPORTANT: auto flex-basis so aspect-ratio defines height in column layout */
+  /* auto flex-basis so aspect-ratio sets height in column layout */
   .ratio-box,
   .ratio-box-blurb {
-    flex: 1 1 auto;          /* was 1 1 50% which can collapse in column flex */
+    flex: 1 1 auto;          /* 1 1 50% collapses in column flex */
     width: 100%;
     max-width: 100%;
     margin: 1rem 0 1.75rem;
@@ -694,11 +631,7 @@
     text-transform: uppercase;
   }
 
-  /* Same highlight as the nav and the hamburger. These only appear on the home
-     page, so the tokens resolve to its red fill and navy ink — but unlike the
-     overlay links these sit at 1rem, which is normal text: navy on #ca0000 is
-     2.8:1 against the 4.5:1 that wants. --nav-ink: var(--fg) on body.home
-     takes every one of them back to cream at 4.9:1 in a single line. */
+  /* Same highlight as the nav, at normal text size. */
   .preorder-item a:is(:hover, :focus-visible),
   .reactions-toggle:is(:hover, :focus-visible) {
     color: var(--nav-ink);
@@ -799,9 +732,7 @@
     margin-top: 1.25rem;
   }
 
-  /* Inline SVG rather than an image file: it inherits `color`, so the icon
-     tracks the page palette, and it renders over file:// as well as http.
-     Box is 2.75rem/44px square to meet the minimum touch-target size. */
+  /* Inline SVG inherits `color`. 2.75rem box is the touch-target minimum. */
   .about .social a {
     display: inline-flex;
     align-items: center;
@@ -819,8 +750,7 @@
     height: 1.75rem;
   }
 
-  /* Contact page. There is no form here — the three cards each reveal an
-     address through a button, so nothing is ever submitted to this site. */
+  /* Contact page: no form, addresses revealed by button. */
   .contact article {
     text-align: center;
     padding-bottom: 1rem;
@@ -862,7 +792,7 @@
     word-break: break-word;
   }
 
-  /* Was a run of <br> between the three contact cards. */
+  /* Replaces a run of <br> between the cards. */
   .contact article + article {
     margin-top: 1.5rem;
   }
@@ -898,15 +828,7 @@
     color: var(--hover-color);
   }
 
-  /* ---- Consent banner ---------------------------------------------------
-     The overlay menu's z-index of 20 is scoped to .hero-heading, which opens a
-     stacking context (position: sticky + z-index: 15). So the menu competes at
-     15 in the root context, and 30 here clears it — the banner stays on top of
-     the home page's first-visit menu.
-
-     Colours come from --consent-bg/--consent-fg, which invert the page (see the
-     page-variant block), so the panel separates from the fullscreen menu behind
-     it by fill rather than by a border it would otherwise share a colour with. */
+  /* Consent banner. 30 clears the overlay menu, which competes at 15. */
   .consent-banner {
     position: fixed;
     right: 1rem;
@@ -927,8 +849,7 @@
     display: none;
   }
 
-  /* The base layer paints headings and links in --fg; these sit in the
-     components layer, so they win over it regardless of specificity. */
+  /* In components, so these win over the base layer's --fg. */
   .consent-banner__title {
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
@@ -952,8 +873,7 @@
     gap: 0.75rem;
   }
 
-  /* Accept and Decline are deliberately identical: nudging visitors toward
-     one answer would undermine consent being freely given. */
+  /* Accept and Decline are deliberately identical. */
   .consent-btn {
     flex: 1 1 8rem;
     min-height: 2.75rem;
@@ -975,7 +895,7 @@
     background: var(--consent-fg);
   }
 
-  /* ---- Legal pages ----------------------------------------------------- */
+  /* Legal pages */
   .legal {
     line-height: 1.6;
     text-align: left;
@@ -1006,8 +926,7 @@
     margin-bottom: 0.5rem;
   }
 
-  /* Keeps the four-column table usable on narrow screens without collapsing
-     it to blocks, which would cost the row/header associations. */
+  /* Scrolls rather than collapsing, which would cost the header associations. */
   .legal-table-scroll {
     margin-bottom: 1.5em;
     overflow-x: auto;
@@ -1071,8 +990,7 @@
     gap: 1.5rem;
   }
 
-  /* Prose colour is set on the card rather than the page so the heading inside
-     it keeps the display red. */
+  /* Prose colour on the card, so the heading keeps the display red. */
   .press-item {
     display: flex;
     flex-direction: column;
@@ -1094,7 +1012,7 @@
     margin-bottom: 1rem;
   }
 
-  /* Spans every column of the grid and shows its banner uncropped. */
+  /* Spans every column, banner uncropped. */
   .press-item--full {
     grid-column: 1 / -1;
   }
@@ -1119,9 +1037,7 @@
   }
 }
 
-/* ==========================================================================
-   3) Utilities & Breakpoints (progressive enhancements)
-   ========================================================================== */
+/* 3) Utilities & Breakpoints (progressive enhancements) */
 @layer utilities {
   .visually-hidden {
     position: absolute;
@@ -1333,7 +1249,7 @@
     }
   }
 
-  /* ≥701px: side-by-side with explicit 50% basis again */
+  /* ≥701px: side-by-side */
   @media (min-width: 701px) {
     .ratio-row {
       flex-direction: row;
@@ -1369,7 +1285,7 @@
     }
   }
 
-  /* ≥900px: room for a true 3-across press grid */
+  /* ≥900px: 3-across press grid */
   @media (min-width: 900px) {
     .press-grid {
       grid-template-columns: repeat(3, 1fr);
