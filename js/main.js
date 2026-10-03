@@ -74,6 +74,11 @@
     document.addEventListener('click', function (event) {
       if (!isOpen()) return;
       if (overlayNav.contains(event.target)) return;
+      // The consent banner sits above the menu rather than behind it, so
+      // answering it is not a click "outside" — on the home page the menu and
+      // the banner come up together on a first visit, and dismissing the menu
+      // to accept or decline would hide the nav the visitor had not used yet.
+      if (event.target.closest('.consent-banner')) return;
       closeMenu();
     });
 
@@ -92,6 +97,13 @@
       // than wandering through content the visitor cannot see. This matters on
       // the home page, where the menu opens by itself on the first visit.
       if (event.key !== 'Tab') return;
+
+      // ...but the consent banner sits *above* the panel, so trapping Tab while
+      // it is up would leave a keyboard visitor unable to reach Accept/Decline
+      // at all — exactly the first-visit case on the home page, where menu and
+      // banner appear together. Consent has to stay reachable, so the trap
+      // stands down until the banner is answered or dismissed.
+      if (document.querySelector('.consent-banner:not([hidden])')) return;
 
       var stops = [hamburger].concat(menuLinks);
       var last = stops[stops.length - 1];
@@ -142,9 +154,9 @@
 
   /* --- Reactions -------------------------------------------------------- */
 
-  // Below 641px the blurbs collapse behind this button; at wider widths the CSS
-  // shows them outright and hides the button, so the state here is only ever
-  // consulted while the button is visible.
+  // The blurbs collapse behind this button at every width: there are enough of
+  // them that leaving them open pushes the pre-order links off a desktop screen
+  // too, not just a phone.
   var reactionsToggle = document.getElementById('reactions-toggle');
   var reactionsContent = document.getElementById('reactions-content');
 

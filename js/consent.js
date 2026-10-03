@@ -1,8 +1,9 @@
 /* ==========================================================================
    Consent gate for Google Analytics.
 
-   Loaded synchronously in <head> on every page, BEFORE anything else, so that
-   no request ever reaches Google until a visitor has opted in. Declining (or
+   Loaded with `defer` on every page, ahead of main.js. Nothing here races a
+   network call: gtag.js is only ever injected from loadAnalytics(), so no
+   request reaches Google until a visitor has opted in. Declining (or
    ignoring the banner) means googletagmanager.com is never contacted at all,
    which is what keeps the site compliant with GDPR Art. 6 and the ePrivacy
    Directive Art. 5(3): analytics cookies are not "strictly necessary", so they
@@ -170,7 +171,8 @@
   function ready() {
     if (!stored) showBanner(false);
 
-    // Delegated because the footer control is rendered later by main.js.
+    // Delegated so one listener covers every reopen control: the footer button
+    // on all pages and the inline one in privacy.html.
     document.addEventListener('click', function (event) {
       if (!event.target.closest('[data-consent-open]')) return;
       event.preventDefault();

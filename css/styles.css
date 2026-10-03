@@ -1,21 +1,12 @@
-/* Bungee Shade — the wordmark and nav face. Pulled from Google Fonts, as it was
-   before 2026-08-10. This sends the visitor's IP to Google before they have
-   consented to anything; to close that, self-host it instead (see README) and
-   delete this line. */
+/* Bungee Shade from Google — see README on self-hosting. */
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap");
 
-/* ==========================================================================
-   Layering keeps cascade predictable: base → components → utilities
-   ========================================================================== */
+/* Layering keeps cascade predictable: base → components → utilities */
 @layer base, components, utilities;
 
-/* ==========================================================================
-   1) Base (mobile-first defaults)
-   ========================================================================== */
+/* 1) Base (mobile-first defaults) */
 @layer base {
-  /* Fonts. WOFF2 first — it is about a quarter the size of the TTF and has been
-     universally supported since 2016; the TTF stays as a fallback and costs no
-     extra request, since the browser only fetches the first format it knows. */
+  /* WOFF2 first, TTF fallback. */
   @font-face {
     font-family: "Anton";
     src: url("../fonts/anton/Anton-Regular.woff2") format("woff2"),
@@ -67,13 +58,7 @@
     /* Decor */
     --dash: 1px solid var(--fg);
 
-    /* Type stacks. Self-hosted rather than pulled from fonts.googleapis.com:
-       requesting a webfont from Google hands the visitor's IP address to a
-       third party before they have consented to anything.
-
-       --font-display-alt is the wordmark and nav only; headings take
-       --font-display. Bungee Shade degrades to Anton, which is the same
-       silhouette without the drop shadow. */
+    /* Type stacks. --font-display-alt is wordmark/nav only. */
     --font-sans: "Rubik", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     --font-display: "Anton", sans-serif;
     --font-display-alt: "Bungee Shade", "Anton", sans-serif;
@@ -86,6 +71,9 @@
   body.home {
     --bg: #0E1C36;
     --hover-color: var(--accent-red);
+    /* Nav + hamburger highlight. */
+    --nav-fill: var(--accent-red);
+    --burger-edge: var(--burger-ink);
   }
   body.about,
   body.privacy {
@@ -97,17 +85,22 @@
   body.about {
     --hover-color: #55917F;
     --selection-bg: #55917F;
+    /* Pill: page green on cream, large text only. */
+    --nav-fill: var(--hover-color);
+    --burger-edge: var(--burger-ink);
   }
-  /* Inverted from the old red page: the background red is now the type, over
-     near-black. The olive and navy that used to carry hover and selection both
-     disappear against #001514, so they hand off to the palette cream, which
-     also keeps the red legible when it sits on an accent fill. */
+  /* Red ground, green type. --dash restated: :root's copy already resolved. */
   body.contact {
-    --bg: #001514;
-    --fg: var(--accent-red);
-    --hover-color: #EDEAD9;
-    --selection-bg: #EDEAD9;
-    --contact-accent: #EDEAD9;
+    --bg: #CA0001;
+    --fg: #B6D094;
+    --dash: 1px solid #B6D094;
+    --hover-color: #073B3A;
+    --selection-bg: #073B3A;
+    --contact-accent: #073B3A;
+
+    /* Menu and hamburger fill with the teal. */
+    --nav-fill: var(--hover-color);
+    --burger-edge: transparent;
   }
   body.press {
     --bg: #B6D094;
@@ -115,22 +108,30 @@
     --selection-bg: #0E1C36;
     --hover-color: var(--selection-bg);
 
-    /* #ca0000 on #B6D094 is 3.6:1 — enough for the large display type this page
-       is built on, but short of the 4.5:1 that body copy needs. Navy is already
-       in the palette and lands at ~7:1 on the green, so prose and the inverted
-       consent banner both take it. */
+    /* Nav and hamburger share the navy highlight. */
+    --nav-fill: var(--hover-color);
+    --burger-ink: var(--fg);
+    --burger-edge: transparent;
+
+    /* Red is short of 4.5:1 here, so prose takes the navy. */
     --body-fg: #0E1C36;
     --consent-bg: #0E1C36;
     --consent-fg: #EDEAD9;
   }
-  /* The consent banner inverts the page it sits on, so it reads as a separate
-     layer rather than part of the page — it has to stay legible over the home
-     page's fullscreen menu, which is painted in --bg. Declared on body rather
-     than :root so each variant's own --fg/--bg are the ones that resolve. */
+  /* Consent banner inverts its page. On body so variants resolve. */
   body {
     --body-fg: var(--fg);
     --consent-bg: var(--fg);
     --consent-fg: var(--bg);
+
+    /* Fill behind a hovered/focused nav item. */
+    --nav-fill: var(--fg);
+    --nav-ink: var(--bg);
+
+    /* Hamburger follows that highlight. */
+    --burger-fill: var(--nav-fill);
+    --burger-ink: var(--nav-ink);
+    --burger-edge: var(--fg);
   }
 
   /* Sensible defaults/reset */
@@ -200,7 +201,6 @@
 
   h1 {
     font-size: clamp(2rem, 7vw, 5rem);
-    letter-spacing: 0.08em;
     line-height: 1.2;
   }
 
@@ -280,12 +280,9 @@
   }
 }
 
-/* ==========================================================================
-   2) Components
-   ========================================================================== */
+/* 2) Components */
 @layer components {
-  /* Shared section chrome: the article is the only rounded panel — nav, the
-     hero and the footer just rule off with a single edge. */
+  /* Article is the only rounded panel; the rest rule off. */
   nav,
   .hero-heading {
     border-bottom: var(--dash);
@@ -355,18 +352,18 @@
     color: var(--fg);
   }
 
-  /* Hover/focus: separate pointer and keyboard states */
+  /* Separate pointer and keyboard states */
   nav li:hover { cursor: pointer; }
 
   nav li:hover a {
-    color: var(--bg);
-    background: var(--fg);
+    color: var(--nav-ink);
+    background: var(--nav-fill);
   }
 
   nav a:focus-visible {
     outline: none;
-    background: var(--fg);
-    color: var(--bg);
+    background: var(--nav-fill);
+    color: var(--nav-ink);
   }
 
   /* Hero */
@@ -381,12 +378,12 @@
     color: var(--fg);
   }
 
+  /* Reserve room for the hamburger so the wordmark stays centred. */
   .has-overlay-menu .hero-heading {
     --overlay-control-size: 3.5rem;
     --overlay-control-offset: 2rem;
     --overlay-control-top: 0.5rem;
-    padding-inline: calc(3.5rem + 2rem);
-    text-align: center;
+    padding-inline: calc(var(--overlay-control-size) + var(--overlay-control-offset));
   }
 
   .hero-heading #page-title {
@@ -396,12 +393,6 @@
 
   body.contact #page-title a:is(:hover, :focus-visible) {
     color: var(--contact-accent);
-  }
-
-  body.contact nav li:hover a,
-  body.contact nav a:focus-visible {
-    color: var(--fg);
-    background: var(--contact-accent);
   }
 
   .has-overlay-menu nav {
@@ -462,9 +453,22 @@
   }
 
   .has-overlay-menu .hamburger:is(:hover, :focus-visible) {
-    color: var(--bg);
-    background: var(--fg);
+    color: var(--burger-ink);
+    background: var(--burger-fill);
+    border-color: var(--burger-edge);
     outline: none;
+  }
+
+  /* Restated so the open-state fill does not block the close button's hover. */
+  .has-overlay-menu nav.menu-open .hamburger:is(:hover, :focus-visible) {
+    background: var(--burger-fill);
+    border-color: var(--burger-edge);
+  }
+
+  /* Bars cut out of the fill on hover. Spans only, not --burger-ink. */
+  body.press .hamburger:is(:hover, :focus-visible) span,
+  body.contact .hamburger:is(:hover, :focus-visible) span {
+    background: var(--bg);
   }
 
   .has-overlay-menu .menu {
@@ -492,8 +496,7 @@
     pointer-events: auto;
   }
 
-  /* Only the delay on `visibility` is load-bearing — without it the panel
-     vanishes before it has finished scaling out. */
+  /* The `visibility` delay is load-bearing; without it the panel pops. */
   @media (prefers-reduced-motion: no-preference) {
     .has-overlay-menu .menu {
       transition:
@@ -557,10 +560,10 @@
     gap: 0;
   }
 
-  /* IMPORTANT: auto flex-basis so aspect-ratio defines height in column layout */
+  /* auto flex-basis so aspect-ratio sets height in column layout */
   .ratio-box,
   .ratio-box-blurb {
-    flex: 1 1 auto;          /* was 1 1 50% which can collapse in column flex */
+    flex: 1 1 auto;          /* 1 1 50% collapses in column flex */
     width: 100%;
     max-width: 100%;
     margin: 1rem 0 1.75rem;
@@ -628,27 +631,16 @@
     text-transform: uppercase;
   }
 
+  /* Same highlight as the nav, at normal text size. */
   .preorder-item a:is(:hover, :focus-visible),
   .reactions-toggle:is(:hover, :focus-visible) {
-    color: var(--fg);
-    background: var(--hover-color);
+    color: var(--nav-ink);
+    background: var(--nav-fill);
   }
 
   .early-reactions {
     margin-top: 2rem;
     text-align: center;
-  }
-
-  .early-reactions .preorder-title {
-    border-bottom: none;
-    font-family: var(--font-sans);
-    font-weight: 400;
-    text-transform: none;
-    font-size: clamp(1.1rem, 5vw, 1.75rem);
-  }
-
-  .reactions-heading {
-    display: none;
   }
 
   .reactions-toggle {
@@ -712,7 +704,6 @@
     height: 100%;
     object-fit: cover;
     filter: grayscale(1) sepia(0.3) saturate(0.6) brightness(1.2) contrast(0.9);
-    display: block;
   }
 
   .about .photo-credit figcaption {
@@ -741,9 +732,7 @@
     margin-top: 1.25rem;
   }
 
-  /* Inline SVG rather than an image file: it inherits `color`, so the icon
-     tracks the page palette, and it renders over file:// as well as http.
-     Box is 2.75rem/44px square to meet the minimum touch-target size. */
+  /* Inline SVG inherits `color`. 2.75rem box is the touch-target minimum. */
   .about .social a {
     display: inline-flex;
     align-items: center;
@@ -761,7 +750,7 @@
     height: 1.75rem;
   }
 
-  /* Forms (scoped to .contact page) */
+  /* Contact page: no form, addresses revealed by button. */
   .contact article {
     text-align: center;
     padding-bottom: 1rem;
@@ -772,13 +761,13 @@
     align-items: center;
     justify-content: center;
     margin-top: 1.5rem;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1.5rem;
     border: var(--dash);
     border-radius: 30px;
     background: transparent;
     color: var(--fg);
-    font-family: var(--font-sans);
-    font-size: 2rem;
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
     letter-spacing: 0.2em;
     font-weight: 700;
     text-transform: uppercase;
@@ -786,7 +775,7 @@
   }
 
   .contact .reveal-btn:is(:hover, :focus-visible) {
-    color: var(--fg);
+    color: var(--bg);
     background: var(--contact-accent);
     outline: none;
   }
@@ -803,7 +792,7 @@
     word-break: break-word;
   }
 
-  /* Was a run of <br> between the three contact cards. */
+  /* Replaces a run of <br> between the cards. */
   .contact article + article {
     margin-top: 1.5rem;
   }
@@ -839,15 +828,7 @@
     color: var(--hover-color);
   }
 
-  /* ---- Consent banner ---------------------------------------------------
-     The overlay menu's z-index of 20 is scoped to .hero-heading, which opens a
-     stacking context (position: sticky + z-index: 15). So the menu competes at
-     15 in the root context, and 30 here clears it — the banner stays on top of
-     the home page's first-visit menu.
-
-     Colours come from --consent-bg/--consent-fg, which invert the page (see the
-     page-variant block), so the panel separates from the fullscreen menu behind
-     it by fill rather than by a border it would otherwise share a colour with. */
+  /* Consent banner. 30 clears the overlay menu, which competes at 15. */
   .consent-banner {
     position: fixed;
     right: 1rem;
@@ -868,8 +849,7 @@
     display: none;
   }
 
-  /* The base layer paints headings and links in --fg; these sit in the
-     components layer, so they win over it regardless of specificity. */
+  /* In components, so these win over the base layer's --fg. */
   .consent-banner__title {
     margin-bottom: 0.5rem;
     font-size: 1.25rem;
@@ -893,8 +873,7 @@
     gap: 0.75rem;
   }
 
-  /* Accept and Decline are deliberately identical: nudging visitors toward
-     one answer would undermine consent being freely given. */
+  /* Accept and Decline are deliberately identical. */
   .consent-btn {
     flex: 1 1 8rem;
     min-height: 2.75rem;
@@ -916,7 +895,7 @@
     background: var(--consent-fg);
   }
 
-  /* ---- Legal pages ----------------------------------------------------- */
+  /* Legal pages */
   .legal {
     line-height: 1.6;
     text-align: left;
@@ -947,8 +926,7 @@
     margin-bottom: 0.5rem;
   }
 
-  /* Keeps the four-column table usable on narrow screens without collapsing
-     it to blocks, which would cost the row/header associations. */
+  /* Scrolls rather than collapsing, which would cost the header associations. */
   .legal-table-scroll {
     margin-bottom: 1.5em;
     overflow-x: auto;
@@ -1012,12 +990,14 @@
     gap: 1.5rem;
   }
 
+  /* Prose colour on the card, so the heading keeps the display red. */
   .press-item {
     display: flex;
     flex-direction: column;
     border: var(--dash);
     border-radius: 20px;
     padding: 1.5rem;
+    color: var(--body-fg);
   }
 
   .press-item:is(:hover, :focus-visible) {
@@ -1032,19 +1012,13 @@
     margin-bottom: 1rem;
   }
 
-  /* Spans every column of the grid and shows its banner uncropped. */
+  /* Spans every column, banner uncropped. */
   .press-item--full {
     grid-column: 1 / -1;
   }
 
   .press-item--full img {
     aspect-ratio: auto;
-  }
-
-  /* Prose colour is set on the card rather than the page so the heading inside
-     it keeps the display red. */
-  .press-item {
-    color: var(--body-fg);
   }
 
   .press-item em {
@@ -1063,9 +1037,7 @@
   }
 }
 
-/* ==========================================================================
-   3) Utilities & Breakpoints (progressive enhancements)
-   ========================================================================== */
+/* 3) Utilities & Breakpoints (progressive enhancements) */
 @layer utilities {
   .visually-hidden {
     position: absolute;
@@ -1143,7 +1115,6 @@
       display: block;
       margin: 0;
       padding: 1rem 0 0 0;
-      z-index: 21;
     }
 
     .has-overlay-menu .hamburger {
@@ -1225,7 +1196,6 @@
     }
 
     .about .photo-credit img {
-      object-fit: cover;
       object-position: center;
     }
 
@@ -1263,18 +1233,6 @@
       padding: 1.5rem;
     }
 
-    .reactions-heading {
-      display: block;
-    }
-
-    .reactions-toggle {
-      display: none;
-    }
-
-    .reactions-content {
-      display: block;
-    }
-
     nav ul {
       flex-direction: row;
       align-items: center;
@@ -1291,7 +1249,7 @@
     }
   }
 
-  /* ≥701px: side-by-side with explicit 50% basis again */
+  /* ≥701px: side-by-side */
   @media (min-width: 701px) {
     .ratio-row {
       flex-direction: row;
@@ -1327,7 +1285,7 @@
     }
   }
 
-  /* ≥900px: room for a true 3-across press grid */
+  /* ≥900px: 3-across press grid */
   @media (min-width: 900px) {
     .press-grid {
       grid-template-columns: repeat(3, 1fr);
