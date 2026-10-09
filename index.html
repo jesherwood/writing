@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <title>Jesse Sherwood — Writer</title>
+    <title>Jesse Sherwood</title>
     <meta name="description" content="Jesse Sherwood is a writer from Western New York. He is the author of We Were Never Meant to Survive This.">
     <meta name="author" content="Jesse Sherwood">
     <link rel="canonical" href="https://www.jessesherwood.com/">
@@ -31,40 +31,84 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Jesse Sherwood",
-      "url": "https://www.jessesherwood.com/",
-      "jobTitle": "Author",
-      "image": "https://www.jessesherwood.com/images/jesse_sherwood2.jpg",
-      "sameAs": [
-        "https://www.thriftbooks.com/w/we-were-never-meant-to-survive-this/58795864/",
-        "https://www.barnesandnoble.com/w/we-were-never-meant-to-survive-this-jesse-sherwood/1149873364",
-        "https://www.amazon.com/Were-Never-Meant-Survive-This/dp/B0GQX13LRD"
-      ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Book",
-      "name": "We Were Never Meant to Survive This",
-      "author": {
-        "@type": "Person",
-        "name": "Jesse Sherwood"
-      },
-      "image": "https://www.jessesherwood.com/images/WeWereNever_Cover.jpg",
-      "url": "https://www.jessesherwood.com/",
-      "datePublished": "2026",
-      "review": [
+      "@graph": [
         {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Paul Beatty" },
-          "reviewBody": "David Hume, Fran Lebowitz, Homer Simpson, add Jesse Sherwood to the list of skeptics who know the end of world is indeed always nigh…and will be for eons. Smart, cliche free, and scarily outdoorsy this novel proves cults are less about personality, than banality."
+          "@type": "Person",
+          "@id": "https://www.jessesherwood.com/#person",
+          "name": "Jesse Sherwood",
+          "url": "https://www.jessesherwood.com/",
+          "jobTitle": "Author",
+          "description": "Jesse Sherwood is a writer from Western New York.",
+          "image": "https://www.jessesherwood.com/images/jesse_sherwood2.jpg",
+          "homeLocation": {
+            "@type": "Place",
+            "name": "Western New York"
+          }
         },
         {
-          "@type": "Review",
-          "author": { "@type": "Person", "name": "Jakob Guanzon" },
-          "reviewBody": "Gripping and grimly prophetic, We Were Never Meant to Survive This is one of those rare thrillers that races at a breakneck pace while tackling big questions head-on."
+          "@type": "Book",
+          "@id": "https://www.jessesherwood.com/#book",
+          "name": "We Were Never Meant to Survive This",
+          "author": { "@id": "https://www.jessesherwood.com/#person" },
+          "isbn": "9798228569737",
+          "bookFormat": "https://schema.org/Hardcover",
+          "inLanguage": "en",
+          "image": "https://www.jessesherwood.com/images/WeWereNever_Cover.jpg",
+          "url": "https://www.jessesherwood.com/",
+          "datePublished": "2026",
+          "offers": [
+            {
+              "@type": "Offer",
+              "url": "https://bookshop.org/p/books/day-zero/db4653b020598778?ean=9798228569737",
+              "availability": "https://schema.org/PreOrder",
+              "seller": { "@type": "Organization", "name": "Bookshop.org" }
+            },
+            {
+              "@type": "Offer",
+              "url": "https://www.barnesandnoble.com/w/we-were-never-meant-to-survive-this-jesse-sherwood/1149873364?ean=9798228569737",
+              "availability": "https://schema.org/PreOrder",
+              "seller": { "@type": "Organization", "name": "Barnes & Noble" }
+            },
+            {
+              "@type": "Offer",
+              "url": "https://www.amazon.com/Were-Never-Meant-Survive-This/dp/B0GQX13LRD",
+              "availability": "https://schema.org/PreOrder",
+              "seller": { "@type": "Organization", "name": "Amazon" }
+            },
+            {
+              "@type": "Offer",
+              "url": "https://www.target.com/p/we-were-never-meant-to-survive-this-by-jesse-sherwood-hardcover/-/A-1011411388",
+              "availability": "https://schema.org/PreOrder",
+              "seller": { "@type": "Organization", "name": "Target" }
+            }
+          ],
+          "review": [
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Paul Beatty" },
+              "reviewBody": "David Hume, Fran Lebowitz, Homer Simpson, add Jesse Sherwood to the list of skeptics who know the end of world is indeed always nigh...and will be for eons. Smart, cliche free, and scarily outdoorsy this novel proves cults are less about personality, than banality. A must read for anyone finding themselves looking for answers and a good television show, and in this case, a powerful book."
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Charles Bock" },
+              "reviewBody": "We Were Never Meant to Survive This is every bit the slap across the face that its daring title suggests. An adrift programmer sets off for an unassuming week with what turns into a ragtag survivalist retreat (in the Catskills, perfect!) — what could go wrong? This is a cautionary and propulsive tale perfect for an era where, from the porch each morning, we can see the end of the world. Echoes of Cormac and Orwell. Jesse Sherwood is a storyteller of the first order — patient, wickedly observant, unflinching at moments, merciful at others, and always dangerous. This novel wrung me out and left me staring up into the night in wonder."
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Jakob Guanzon" },
+              "reviewBody": "Gripping and grimly prophetic, We Were Never Meant to Survive This is one of those rare thrillers that races at a breakneck pace while tackling big questions head-on. The impact will transfix and later chill you. By pitting our basest instincts for survival against the hubris and folly of modernity, Sherwood compels us to consider what from today truly merits preserving for tomorrow."
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Francesca Giacco" },
+              "reviewBody": "Propulsive and richly imagined, We Were Never Meant to Survive This asks what, beyond air, water, and food, is essential, while laying bare what makes us human and keeps us alive. Through the allure and danger of a wilderness camp and its mysterious leader, Jesse Sherwood's visceral, compelling debut confronts what it means to exist in a complex, often lonely world."
+            },
+            {
+              "@type": "Review",
+              "author": { "@type": "Person", "name": "Christopher Blackman" },
+              "reviewBody": "We Were Never Meant to Survive This is a thrilling novel that's made for this moment. Urgent and timely, it's cut from a tradition of novels that beckon you to witness a true American specimen. Like Gatsby, or Owen Wister's Virginian, the novel's enigmatic guru A is a particular strain of American idealism personified—remake yourself in your own image. As always, the question remains: what's real, what's myth, and what's pure fabrication?"
+            }
+          ]
         }
       ]
     }
