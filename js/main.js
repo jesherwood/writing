@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Site behaviour: footer year, overlay menu, contact reveal, reactions toggle.
+   Site behaviour: footer year, overlay menu, contact reveal.
 
    Loaded with `defer`, so the document is already parsed by the time this runs
    and no DOMContentLoaded wrapper is needed.
@@ -151,19 +151,4 @@
       link.focus();
     });
   });
-
-  /* --- Reactions -------------------------------------------------------- */
-
-  // The blurbs collapse behind this button at every width: there are enough of
-  // them that leaving them open pushes the pre-order links off a desktop screen
-  // too, not just a phone.
-  var reactionsToggle = document.getElementById('reactions-toggle');
-  var reactionsContent = document.getElementById('reactions-content');
-
-  if (reactionsToggle && reactionsContent) {
-    reactionsToggle.addEventListener('click', function () {
-      var expanded = reactionsContent.classList.toggle('is-open');
-      reactionsToggle.setAttribute('aria-expanded', String(expanded));
-    });
-  }
 }());
