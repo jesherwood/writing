@@ -977,13 +977,10 @@
     margin-bottom: 1rem;
   }
 
-  /* Spans every column, banner uncropped. */
-  .press-item--full {
-    grid-column: 1 / -1;
-  }
-
-  .press-item--full img {
-    aspect-ratio: auto;
+  /* Press-page images are article banners (~1.9:1), not book covers;
+     3:2 would clip their edges. Size new banners close to this ratio. */
+  .press .press-item img {
+    aspect-ratio: 19 / 10;
   }
 
   .press-item em {
@@ -1255,8 +1252,10 @@
       gap: 2rem;
     }
 
-    /* Home's four work cards stay 2×2 rather than leaving one orphaned. */
-    .home .press-grid {
+    /* Home's four work cards stay 2×2 rather than leaving one orphaned;
+       press stays 2-across so its cards keep their banner width. */
+    .home .press-grid,
+    .press .press-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
