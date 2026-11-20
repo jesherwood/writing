@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, follow">
+    <title>Jesse Sherwood</title>
+    <link rel="canonical" href="https://www.jessesherwood.com/">
+    <!-- /work: the home page without the first-visit menu. Marks the menu as
+         already shown for this session (the same flag js/main.js writes), then
+         replaces this page with the home page so Back skips it. -->
+    <script>
+    try { sessionStorage.setItem('menuShownThisSession', 'true'); } catch (err) {}
+    location.replace('/');
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/"></noscript>
+</head>
+<body>
+    <p><a href="/">Continue to jessesherwood.com</a></p>
+</body>
+</html>

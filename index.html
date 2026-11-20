@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- Decides before first paint whether the menu greets this visit, so it
          is already open when the page appears instead of animating in after
-         js/main.js (deferred) runs. main.js reads and clears this class. -->
+         js/main.js (deferred) runs. main.js reads and clears this class.
+         Two ways to land with the menu closed: ?nomenu on this page, or
+         /work (work.html), which sets the flag first and redirects here. -->
     <script>
     (function () {
       var seen = null;
