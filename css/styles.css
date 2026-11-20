@@ -439,7 +439,8 @@
     background: currentColor;
   }
 
-  .has-overlay-menu nav.menu-open .hamburger {
+  .has-overlay-menu nav.menu-open .hamburger,
+  .menu-preopen .has-overlay-menu .hamburger {
     position: relative;
     z-index: 22;
     color: var(--bg);
@@ -447,11 +448,13 @@
     outline: none;
   }
 
-  .has-overlay-menu nav.menu-open .hamburger span {
+  .has-overlay-menu nav.menu-open .hamburger span,
+  .menu-preopen .has-overlay-menu .hamburger span {
     display: none;
   }
 
-  .has-overlay-menu nav.menu-open .hamburger::before {
+  .has-overlay-menu nav.menu-open .hamburger::before,
+  .menu-preopen .has-overlay-menu .hamburger::before {
     content: "X";
     font: inherit;
     font-weight: 700;
@@ -497,11 +500,22 @@
     pointer-events: none;
   }
 
-  .has-overlay-menu nav.menu-open .menu {
+  .has-overlay-menu nav.menu-open .menu,
+  .menu-preopen .has-overlay-menu .menu {
     transform: scale(1);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+  }
+
+  /* First-visit open state set in <head> before paint: appear already open,
+     with no transition, until main.js takes over and clears the class. */
+  .menu-preopen .has-overlay-menu .menu {
+    transition: none !important;
+  }
+
+  .menu-preopen body.has-overlay-menu {
+    overflow: hidden;
   }
 
   /* The `visibility` delay is load-bearing; without it the panel pops. */

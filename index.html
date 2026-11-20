@@ -9,6 +9,18 @@
     <meta name="author" content="Jesse Sherwood">
     <link rel="canonical" href="https://www.jessesherwood.com/">
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Decides before first paint whether the menu greets this visit, so it
+         is already open when the page appears instead of animating in after
+         js/main.js (deferred) runs. main.js reads and clears this class. -->
+    <script>
+    (function () {
+      var seen = null;
+      try { seen = sessionStorage.getItem('menuShownThisSession'); } catch (err) {}
+      if (!seen && !/[?&]nomenu(=|&|$)/.test(location.search)) {
+        document.documentElement.classList.add('menu-preopen');
+      }
+    }());
+    </script>
     <link rel="preload" href="fonts/anton/Anton-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/bungee-shade/BungeeShade-Regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/rubik/Rubik-Regular.woff2" as="font" type="font/woff2" crossorigin>
