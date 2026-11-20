@@ -50,19 +50,19 @@
 
     // sessionStorage throws when site data is blocked. Failing just means the
     // menu greets the visitor again, which is harmless.
-    function readFlag(key) {
-      try { return window.sessionStorage.getItem(key); } catch (err) { return null; }
-    }
-
     function writeFlag(key, value) {
       try { window.sessionStorage.setItem(key, value); } catch (err) { /* ignore */ }
     }
 
-    var forceClosed = new URLSearchParams(location.search).has('nomenu');
+    // The decision is made by an inline script in index.html's <head>, before
+    // first paint, and handed over as `menu-preopen` on <html>. CSS shows the
+    // menu open from that class alone, so there is no closed-then-open flash.
+    var root = document.documentElement;
     var openByDefault = document.body.classList.contains('home') &&
-      !forceClosed && !readFlag(FIRST_VISIT_KEY);
+      root.classList.contains('menu-preopen');
 
     setMenuState(openByDefault);
+    root.classList.remove('menu-preopen');
     if (openByDefault) writeFlag(FIRST_VISIT_KEY, 'true');
 
     hamburger.addEventListener('click', function () {
